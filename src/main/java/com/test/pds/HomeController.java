@@ -15,8 +15,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.test.pds.service.ArticleRequest;
-import com.test.pds.service.ArticleService;
+import com.test.pds.article.service.ArticleRequest;
+import com.test.pds.article.service.ArticleService;
 
 /**
  * Handles requests for the application home page.
@@ -31,7 +31,7 @@ public class HomeController {
 	
 	@RequestMapping(value = "/addArticle", method = RequestMethod.GET)
 	public String addArticle() {
-		return "addArticle";
+		return "article/addArticle";
 	}
 	
 	@RequestMapping(value = "/addArticle", method = RequestMethod.POST)

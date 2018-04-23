@@ -1,4 +1,4 @@
-package com.test.pds.service;
+package com.test.pds.article.service;
 
 public class ArticleFile {
 	private int articleFileId;

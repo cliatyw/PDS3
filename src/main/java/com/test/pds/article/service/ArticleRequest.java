@@ -1,4 +1,4 @@
-package com.test.pds.service;
+package com.test.pds.article.service;
 
 import org.springframework.web.multipart.MultipartFile;
 

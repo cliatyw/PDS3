@@ -27,7 +27,7 @@
 	
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver"/>
-		<property name="url" value="jdbc:mysql://127.0.0.1:3306/mall?useUnicode=true&amp;characterEncoding=utf8"/>
+		<property name="url" value="jdbc:mysql://127.0.0.1:3306/pds?useUnicode=true&amp;characterEncoding=utf8"/>
 		<property name="username" value="root"/>
 		<property name="password" value="java0000"/>
 	</bean>
@@ -39,6 +39,10 @@
 		<!-- mybatis 세션생성후 쿼리를 실행시킬때 사용할 쿼리위치(메퍼)설정 -->
 		<property name="mapperLocations">
 			<list>
+				<value>classpath:com/test/pds/article/service/ArticleMapper.xml</value>
+				<value>classpath:com/test/pds/board/service/BoardMapper.xml</value>
+				<value>classpath:com/test/pds/resume/service/ResumeMapper.xml</value>
+				<value>classpath:com/test/pds/notice/service/NoticeMapper.xml</value>
 			</list>
 		</property>
 	</bean>
