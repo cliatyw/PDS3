@@ -9,25 +9,23 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class BoardService {
-	public void addBoard(BoardRequest boardRequest, String path) {
+	
+	public void addBoard(BoardRequest boardRequest) {
 		MultipartFile multipartFile = boardRequest.getMultipartFile();
 		
 		Board board = new Board();
 		board.setBoardTitle(boardRequest.getBoardTitle());
 		board.setBoardContent(boardRequest.getBoardContent());
-		
-		BoardFile boardFile = new BoardFile();
-		
-		//파일 이름
+				
+		//UUID를 이용한 파일 이름
 		UUID uuid = UUID.randomUUID();
 		String filename = uuid.toString();
 		filename.replace("-", "");
-		
-		board.setBoardFile(boardFile);
-		
+				
 		//파일 확장자
 		int dotIndex = multipartFile.getOriginalFilename().lastIndexOf(".");
 		String fileExt = multipartFile.getOriginalFilename().substring(dotIndex+1);
+		
 		//파일 컨텐트 타입
 		String fileType = multipartFile.getContentType();
 		
@@ -39,17 +37,13 @@ public class BoardService {
 		try {
 			multipartFile.transferTo(file);
 		} catch (IllegalStateException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-		
+		}	
 		// board.id = 0 
 		//boardDao.insertBoard(board); 
 		// board.id = 1
 		//boardFile.setBoardFile(boardFile);
-	
 	}
 }

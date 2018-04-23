@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,22 +21,20 @@ import com.test.pds.board.service.BoardService;
 
 @Controller
 public class BoardController {
+	@Autowired
 	private BoardService boardService;
 	private static final Logger logger = LoggerFactory.getLogger(BoardController.class);
 	
 	@RequestMapping(value = "/addBoard", method = RequestMethod.GET)
 	public String addBoard() {
-		return "addBoard";
+		return "/board/addBoard";
 	}
 	@RequestMapping(value = "/addBoard", method = RequestMethod.POST)
 	public String addBoard(BoardRequest boardRequest, HttpSession session) {
-		System.out.println(boardRequest);
-		String path = session.getServletContext().getRealPath("/resources/upload");
 		//service : BoardRequest -> Board + 파일 폴더 저장
-		//dao : insert
-		System.out.println(path);
-		boardService.addBoard(boardRequest, path);
-		return "redirect:/";
+		//dao : insert	
+		boardService.addBoard(boardRequest);
+		return "redirect:/addBoard";
 	}
 	
 }
