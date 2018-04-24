@@ -7,10 +7,10 @@
 </head>
 <body>
 	<h1>addNotice</h1>
-	<form enctype="multipart/form-data" action="/pds/addNotice" method="post">
+	<form enctype="multipart/form-data" action="${pageContext.request.contextPath}/selectNoticeList" method="post">
 		<div>noticeTitle : <input type="text" name="noticeTitle"></div>
 		<div>noticeContent : <textarea name="noticeContent"></textarea></div>
-		<div>noticeFile : <input type="file" name="MultipartFile"></div>
+		<div>noticeFile : <input type="file" name="multipartFile"></div>
 		<div><input type="submit"></div>
 	</form>
 </body>

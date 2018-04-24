@@ -18,37 +18,40 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.test.pds.board.service.Board;
 import com.test.pds.board.service.BoardRequest;
 import com.test.pds.board.service.BoardService;
+import com.test.pds.gallery.service.Gallery;
+import com.test.pds.gallery.service.GalleryRequest;
+import com.test.pds.gallery.service.GalleryService;
 import com.test.pds.notice.service.Notice;
 import com.test.pds.notice.service.NoticeRequest;
 import com.test.pds.notice.service.NoticeService;
 
 
 @Controller
-public class NoticeController {
+public class GalleryController {
 	@Autowired
-	private NoticeService noticeService;
-	private static final Logger logger = LoggerFactory.getLogger(NoticeController.class);
+	private GalleryService galleryService;
+	private static final Logger logger = LoggerFactory.getLogger(GalleryController.class);
 	
-	@RequestMapping(value = "/insertNotice", method = RequestMethod.GET)
-	public String inseryNotice() {
-		return "notice/addNotice";
+	@RequestMapping(value = "/insertGallery", method = RequestMethod.GET)
+	public String insertGallery() {
+		return "gallery/insertGallery";
 	}
 	
-	@RequestMapping(value = "/insertNotice", method = RequestMethod.POST)
-	public String insertNotice(NoticeRequest noticeRequest, HttpSession session) {
-		System.out.println(noticeRequest);
+	@RequestMapping(value = "/insertGallery", method = RequestMethod.POST)
+	public String insertGallery(GalleryRequest galleryRequest, HttpSession session) {
+		System.out.println(galleryRequest);
 		String path = session.getServletContext().getRealPath("/resources/upload");
 		//service : GalleryRequest -> Gallery + 파일 폴더 저장
 		//dao : insert
 		System.out.println(path);
-		noticeService.addNotice(noticeRequest, path);
+		galleryService.insertGallery(galleryRequest, path);
 		return "redirect:/";
 	}
 	
-	@RequestMapping(value = "/selectNoticeList", method = RequestMethod.POST)
-	public String selectNoticeList(Model model, HttpSession session) {
-		List<Notice> list = noticeService.selectNoticeList();
+	@RequestMapping(value = "/selectGalleryList", method = RequestMethod.POST)
+	public String selectGalleryList(Model model, HttpSession session) {
+		List<Gallery> list = galleryService.selectGalleryList();
 		model.addAttribute("list", list);
-		return "notice/selectNoticeList";
+		return "gallery/selectGalleryList";
 	}
 }

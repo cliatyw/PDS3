@@ -5,8 +5,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class NoticeRequest {
 	private String noticeTitle;
 	private String noticeContent;
-	private MultipartFile MultipartFile;
-	
+	private MultipartFile multipartFile;
 	public String getNoticeTitle() {
 		return noticeTitle;
 	}
@@ -20,15 +19,10 @@ public class NoticeRequest {
 		this.noticeContent = noticeContent;
 	}
 	public MultipartFile getMultipartFile() {
-		return MultipartFile;
+		return multipartFile;
 	}
 	public void setMultipartFile(MultipartFile multipartFile) {
-		MultipartFile = multipartFile;
-	}
-	@Override
-	public String toString() {
-		return "NoticeRequest [noticeTitle=" + noticeTitle + ", noticeContent=" + noticeContent + ", MultipartFile="
-				+ MultipartFile + "]";
+		this.multipartFile = multipartFile;
 	}
 
 }
