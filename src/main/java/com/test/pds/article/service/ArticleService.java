@@ -11,19 +11,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.test.pds.SystemPath;
+
 @Service
 public class ArticleService {
 	
 	@Autowired
 	private ArticleDao articleDao;
+	@Autowired
+	private ArticleFileDao articleFileDao;
 	
 	private static final Logger logger = LoggerFactory.getLogger(ArticleService.class);
 	
-	public List<Article> getArticleList() {
+	public List<Article> selectArticleList() {
 		return articleDao.selectArticle();
 	}
-	
-	public void addArticle(ArticleRequest articleRequest, String path) {
+	/*
+	 * articleRequest를 매개변수로 받아 article에 셋팅하고,
+	 * multipartFile을 얻어 대입하여 속성들을 얻은 후 Dao를 호출한다.
+	 */
+	public void insertArticle(ArticleRequest articleRequest) {
 		MultipartFile multipartFile = articleRequest.getMultipartFile();
 		
 		/*
@@ -51,7 +58,10 @@ public class ArticleService {
 		
 		long fileSize = multipartFile.getSize();
 		
-		File file = new File("C:\\Users\\Administrator\\git\\PDS\\PDS\\src\\main\\resources\\upload"+"\\"+fileName+"."+fileExt);
+		/*
+		 * 고정위치에 파일을 생성하여, 업로드 받은 파일을 그위치에 놓는다.
+		 */
+		File file = new File(SystemPath.DOWNLOAD_PATH+fileName+"."+fileExt);
 		try {
 			multipartFile.transferTo(file);
 		} catch (IllegalStateException e) {
@@ -60,12 +70,16 @@ public class ArticleService {
 			e.printStackTrace();
 		}
 		
+		/*
+		 * article을 insert하고 난후 id값을 리턴받는다.
+		 * 지금까지 file정보를 articleFile에 셋팅하고 Dao에 insert를 실행시킨다.
+		 */
 		articleFile.setArticleId(articleDao.insertArticle(article));
 		articleFile.setArticleFileName(fileName);
 		articleFile.setArticleFileExt(fileExt);
 		articleFile.setArticleFileType(fileType);
 		articleFile.setArticleFileSize((int) fileSize);
 		
-		articleDao.insertArticleFile(articleFile);
+		articleFileDao.insertArticleFile(articleFile);
 	}
 }

@@ -23,15 +23,9 @@ public class ArticleDao {
 	}
 	/*
 	 * article 매개변수로 받아 article 입력처리 후 id값을 리턴받는다
-	 * 그 id값으로 articleFile도 입력처리 한다.
 	 */
 	public int insertArticle(Article article) {
 		sqlSession.insert(NS+"insertArticle", article);
 		return article.getArticleId();
-	}
-	
-	public int insertArticleFile(ArticleFile articleFile) {
-		int row = sqlSession.insert(NS+"insertArticleFile", articleFile);
-		return row;
 	}
 }

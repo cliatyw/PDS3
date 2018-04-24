@@ -20,26 +20,26 @@ public class ArticleController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(ArticleController.class);
 	
-	@RequestMapping(value = "/getArticleList", method = RequestMethod.GET)
-	public String getArticleList(Model model, HttpSession session) {
+	@RequestMapping(value = "/selectArticleList", method = RequestMethod.GET)
+	public String selectArticleList(Model model, HttpSession session) {
 		String path = session.getServletContext().getRealPath("/resources/upload");
-		System.out.println(articleService.getArticleList());
-		model.addAttribute("list", articleService.getArticleList());
+		model.addAttribute("list", articleService.selectArticleList());
 		model.addAttribute("path", path);
-		return "article/getArticleList";
+		return "article/selectArticleList";
+	}
+	/*
+	 * insertArticle 매핑
+	 * get방식으로 입력창을 foward하고
+	 * post방식으로 service에 insert를 호출한 후 redirect한다.
+	 */
+	@RequestMapping(value = "/insertArticle", method = RequestMethod.GET)
+	public String insertArticle() {
+		return "article/insertArticle";
 	}
 	
-	@RequestMapping(value = "/addArticle", method = RequestMethod.GET)
-	public String addArticle() {
-		return "article/addArticle";
-	}
-	
-	@RequestMapping(value = "/addArticle", method = RequestMethod.POST)
-	public String addArticle(ArticleRequest articleRequest, HttpSession session) {
-		String path = session.getServletContext().getRealPath("/resources/upload");
-		System.out.println(articleRequest);
-		System.out.println(path);
-		articleService.addArticle(articleRequest, path);
+	@RequestMapping(value = "/insertArticle", method = RequestMethod.POST)
+	public String insertArticle(ArticleRequest articleRequest) {
+		articleService.insertArticle(articleRequest);
 		return "redirect:/";
 	}
 }

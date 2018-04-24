@@ -4,10 +4,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>getArticleList</title>
+<title>selectArticleList</title>
 </head>
 <body>
-	<h1>getArticleList</h1>
+	<h1>selectArticleList</h1>
 	<table>
 		<thead>
 			<tr>
@@ -23,7 +23,7 @@
 					<td>${article.articleId}</td>
 					<td>${article.articleTitle}</td>
 					<td>${article.articleContent}</td>
-					<td><a href="C:/Users/Administrator/git/PDS/PDS/src/main/resources/upload/${article.articleFile.articleFileName}.${article.articleFile.articleFileExt}" download target="_blank">${article.articleFile.articleFileName}</a></td>
+					<td><a href="/pds/resources/upload/${article.articleFile.articleFileName}.${article.articleFile.articleFileExt}" download target="_blank">${article.articleFile.articleFileName}</a></td>
 				</tr>
 			</c:forEach>
 		</tbody>
