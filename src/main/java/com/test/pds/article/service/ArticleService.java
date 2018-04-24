@@ -2,13 +2,23 @@ package com.test.pds.article.service;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.UUID;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class ArticleService {
+	
+	@Autowired
+	private ArticleDao articleDao;
+	
+	public List<Article> getArticleList() {
+		return articleDao.selectArticle();
+	}
+	
 	public void addArticle(ArticleRequest articleRequest, String path) {
 		MultipartFile multipartFile = articleRequest.getMultipartFile();
 		
@@ -36,5 +46,13 @@ public class ArticleService {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
+		articleFile.setArticleId(articleDao.insertArticle(article));
+		articleFile.setArticleFileName(fileName);
+		articleFile.setArticleFileExt(fileExt);
+		articleFile.setArticleFileType(fileType);
+		articleFile.setArticleFileSize((int) fileSize);
+		
+		articleDao.insertArticleFile(articleFile);
 	}
 }

@@ -4,5 +4,56 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="com.test.pds.article.service.ArticleMapper">
-
+	<resultMap type="com.test.pds.article.service.Article" id="resultArticle">
+		<result column="article_id" property="articleId" />
+		<result column="article_title" property="articleTitle" />
+		<result column="article_content" property="articleContent" />
+		<collection property="articleFile" ofType="com.test.pds.article.service.ArticleFile">
+			<id column="article_file_id" property="articleFileId" />
+			<result column="article_id" property="articleId" />
+			<result column="article_file_name" property="articleFileName" />
+			<result column="article_file_ext" property="articleFileExt" />
+			<result column="article_file_type" property="articleFileType" />
+			<result column="article_file_size" property="articleFileSize" />
+		</collection>
+	</resultMap>
+	<select id="selectArticleList" parameterType="int" resultMap="resultArticle">
+			select 
+				article.article_id
+				, article.article_title
+				, article.article_content
+				, article_file.article_file_name
+				, article_file.article_file_ext
+			from article inner join article_file
+			on article.article_id = article_file.article_id
+    </select>
+	<insert id="insertArticle" parameterType="com.test.pds.article.service.Article">
+		<selectKey resultType="int" keyProperty="articleId" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		INSERT INTO article(
+			article_title
+			, article_content
+		)
+		VALUES (
+			#{articleTitle}
+			, #{articleContent}
+		)
+	</insert>
+	<insert id="insertArticleFile" parameterType="com.test.pds.article.service.ArticleFile">
+		INSERT INTO article_file(
+			article_id
+			, article_file_name
+			, article_file_ext
+			, article_file_type
+			, article_file_size
+		)
+		VALUES (
+			#{articleId}
+			, #{articleFileName}
+			, #{articleFileExt}
+			, #{articleFileType}
+			, #{articleFileSize}
+		)
+	</insert>
 </mapper>

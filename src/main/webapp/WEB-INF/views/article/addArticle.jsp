@@ -7,7 +7,7 @@
 </head>
 <body>
 	<h1>addArticle</h1>
-	<form enctype="multipart/form-data" action="/pds/addArticle" method="post">
+	<form enctype="multipart/form-data" action="${pageContext.request.contextPath}/addArticle" method="post">
 		<div>articleTitle : <input type="text" name="articleTitle"></div>
 		<div>articleContent : <input type="text" name="articleContent"></div>
 		<div>articleFile : <input type="file" name="multipartFile"></div>
