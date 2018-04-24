@@ -6,7 +6,9 @@ public class Board {
 	private int boardId;
 	private String boardTitle;
 	private String boardContent;
-	private BoardFile boardFile; // 1:n 바꾸기
+	/*추후 1:N(List)로 바꿔주기*/
+	private BoardFile boardFile;
+	
 	public int getBoardId() {
 		return boardId;
 	}
@@ -30,6 +32,11 @@ public class Board {
 	}
 	public void setBoardFile(BoardFile boardFile) {
 		this.boardFile = boardFile;
+	}
+	@Override
+	public String toString() {
+		return "Board [boardId=" + boardId + ", boardTitle=" + boardTitle + ", boardContent=" + boardContent
+				+ ", boardFile=" + boardFile + "]";
 	}
 	
 }

@@ -5,7 +5,8 @@ import org.springframework.web.multipart.MultipartFile;
 public class BoardRequest {
 	private String boardTitle;
 	private String boardContent;
-	private MultipartFile MultipartFile;
+	private MultipartFile multipartFile;
+	
 	public String getBoardTitle() {
 		return boardTitle;
 	}
@@ -19,17 +20,14 @@ public class BoardRequest {
 		this.boardContent = boardContent;
 	}
 	public MultipartFile getMultipartFile() {
-		return MultipartFile;
+		return multipartFile;
 	}
 	public void setMultipartFile(MultipartFile multipartFile) {
-		MultipartFile = multipartFile;
+		this.multipartFile = multipartFile;
 	}
 	@Override
 	public String toString() {
-		return "BoardRequest [boardTitle=" + boardTitle + ", boardContent=" + boardContent + ", MultipartFile="
-				+ MultipartFile + "]";
+		return "BoardRequest [boardTitle=" + boardTitle + ", boardContent=" + boardContent + ", multipartFile="
+				+ multipartFile + "]";
 	}
-	
-
-
 }
