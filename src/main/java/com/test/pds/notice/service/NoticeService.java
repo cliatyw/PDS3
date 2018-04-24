@@ -4,11 +4,17 @@ import java.io.File;
 import java.io.IOException;
 import java.util.UUID;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.sun.media.jfxmedia.logging.Logger;
+
 @Service
 public class NoticeService {
+	@Autowired 
+	private NoticeDao noticeDao;
+
 	public void addNotice(NoticeRequest noticeRequest, String path) {
 		MultipartFile multipartFile = noticeRequest.getMultipartFile();
 		
@@ -46,10 +52,13 @@ public class NoticeService {
 			e.printStackTrace();
 		}
 		
-		// board.id = 0 
-		//boardDao.insertBoard(board); 
-		// board.id = 1
-		//boardFile.setBoardFile(boardFile);
-	
+		noticeDao.insertNotice(notice);
+		System.out.println(noticeDao.insertNotice(notice));
+		noticeFile.setNoticeFileExt(fileExt);
+		noticeFile.setNoticeFileId(noticeDao.insertNotice(notice));
+		noticeFile.setNoticeFileName(filename);
+		noticeFile.setNoticeFileType(fileType);
+		noticeFile.setNoticeFileSize((int) fileSize);
+		noticeDao.addNoticeFile(noticeFile);
 	}
 }
