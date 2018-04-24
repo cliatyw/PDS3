@@ -5,14 +5,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class BoardDao {
+public class BoardFileDao {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
-	final String NS = "com.test.pds.board.service.BoardMapper.";
+	final String NS = "com.test.pds.board.service.BoardFileMapper";
 	
-	/*Board 입력*/
-	public int insertBoard(Board board) {
-		sqlSession.insert(NS+"insertBoard", board);
-		return board.getBoardId();
+	/*BoardFile 입력*/
+	public int insertBoardFile(BoardFile boardFile) {
+		int row = sqlSession.insert(NS+"insertBoardFile", boardFile);	
+		return row;
 	}
 }
