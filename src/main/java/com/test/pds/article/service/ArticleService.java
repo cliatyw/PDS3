@@ -9,11 +9,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.test.pds.SystemPath;
 
 @Service
+@Transactional
 public class ArticleService {
 	
 	@Autowired
@@ -61,7 +63,7 @@ public class ArticleService {
 		/*
 		 * 고정위치에 파일을 생성하여, 업로드 받은 파일을 그위치에 놓는다.
 		 */
-		File file = new File(SystemPath.DOWNLOAD_PATH+fileName+"."+fileExt);
+		File file = new File(SystemPath.UPLOAD_PATH+fileName+"."+fileExt);
 		try {
 			multipartFile.transferTo(file);
 		} catch (IllegalStateException e) {
@@ -80,6 +82,11 @@ public class ArticleService {
 		articleFile.setArticleFileType(fileType);
 		articleFile.setArticleFileSize((int) fileSize);
 		
+		/*트랜잭션이 잘되나 확인용
+		if (true) {
+			throw new RuntimeException();
+		}*/
+
 		articleFileDao.insertArticleFile(articleFile);
 	}
 }
