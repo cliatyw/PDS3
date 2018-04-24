@@ -1,4 +1,4 @@
-package com.test.pds.notice.service;
+package com.test.pds.gallery.service;
 
 import java.io.File;
 import java.io.IOException;
@@ -13,26 +13,26 @@ import org.springframework.web.multipart.MultipartFile;
 import com.sun.media.jfxmedia.logging.Logger;
 
 @Service
-public class NoticeService {
+public class GalleryService {
 	@Autowired 
-	private NoticeDao noticeDao;
+	private GalleryDao galleryDao;
 	@Autowired 
-	private NoticeFileDao noticeFileDao;
-	public void addNotice(NoticeRequest noticeRequest, String path) {
-		MultipartFile multipartFile = noticeRequest.getMultipartFile();
+	private GalleryFileDao galleryFileDao;
+	public void insertGallery(GalleryRequest galleryRequest, String path) {
+		MultipartFile multipartFile = galleryRequest.getMultipartFile();
 		
-		Notice notice = new Notice();
-		notice.setNoticeTitle(noticeRequest.getNoticeTitle());
-		notice.setNoticeContent(noticeRequest.getNoticeContent());
+		Gallery gallery = new Gallery();
+		gallery.setGalleryTitle(galleryRequest.getGalleryTitle());
+		gallery.setGalleryContent(galleryRequest.getGalleryContent());
 		
-		NoticeFile noticeFile = new NoticeFile();
+		GalleryFile galleryFile = new GalleryFile();
 		
 		//파일 이름
 		UUID uuid = UUID.randomUUID();
 		String filename = uuid.toString();
 		filename = filename.replace("-", "");
 		
-		notice.setNoticeFile(noticeFile);
+		gallery.setGalleryFile(galleryFile);
 		
 		//파일 확장자
 		int dotIndex = multipartFile.getOriginalFilename().lastIndexOf(".");
@@ -55,21 +55,21 @@ public class NoticeService {
 			e.printStackTrace();
 		}
 		
-		noticeDao.insertNotice(notice);
-		System.out.println(noticeDao.insertNotice(notice));
-		noticeFile.setNoticeFileExt(fileExt);
-		noticeFile.setNoticeId(noticeDao.insertNotice(notice));
-		noticeFile.setNoticeFileName(filename);
-		noticeFile.setNoticeFileType(fileType);
-		noticeFile.setNoticeFileSize((int) fileSize);
-		noticeFileDao.insertNoticeFile(noticeFile);
+		galleryDao.insertGallery(gallery);
+		System.out.println(galleryDao.insertGallery(gallery));
+		galleryFile.setGalleryFileExt(fileExt);
+		galleryFile.setGalleryId(galleryDao.insertGallery(gallery));
+		galleryFile.setGalleryFileName(filename);
+		galleryFile.setGalleryFileType(fileType);
+		galleryFile.setGalleryFileSize((int) fileSize);
+		galleryFileDao.insertGalleryFile(galleryFile);
 	}
 	
 
 	 
-	public List<Notice> selectNoticeList() { 
-		List<Notice> list = new ArrayList<Notice>(); 
-		list = noticeDao.selectNoticeList(); 
+	public List<Gallery> selectGalleryList() { 
+		List<Gallery> list = new ArrayList<Gallery>(); 
+		list = galleryDao.selectGalleryList(); 
 		return list; 
 	} 
 
