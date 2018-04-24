@@ -23,7 +23,7 @@
 					<td>${article.articleId}</td>
 					<td>${article.articleTitle}</td>
 					<td>${article.articleContent}</td>
-					<td><a href="${path}/${article.articleFile.articleFileName}.${article.articleFile.articleFileExt}" download target="_blank">${article.articleFile.articleFileName}</a></td>
+					<td><a href="C:/Users/Administrator/git/PDS/PDS/src/main/resources/upload/${article.articleFile.articleFileName}.${article.articleFile.articleFileExt}" download target="_blank">${article.articleFile.articleFileName}</a></td>
 				</tr>
 			</c:forEach>
 		</tbody>
