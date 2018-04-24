@@ -4,15 +4,23 @@ import java.io.File;
 import java.io.IOException;
 import java.util.UUID;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.test.pds.BoardController;
+
 @Service
+@Transactional
 public class BoardService {
 	@Autowired 
 	private BoardDao boardDao;
+	@Autowired
 	private BoardFileDao boardFileDao;
+	private static final Logger logger = LoggerFactory.getLogger(BoardController.class);
 	
 	/*Board,BoardFile 입력*/
 	public void addBoard(BoardRequest boardRequest,String path) {
@@ -24,7 +32,7 @@ public class BoardService {
 		board.setBoardTitle(boardRequest.getBoardTitle());
 		board.setBoardContent(boardRequest.getBoardContent());
 		
-		/*Board 입력*/
+		/*Board 입력후 boardId를 리턴받는다*/
 		int boardId= boardDao.insertBoard(board);
 		
 		BoardFile boardFile = new BoardFile();
@@ -63,7 +71,6 @@ public class BoardService {
 		boardFile.setBoardId(boardId);
 		
 		//DB BoardFile입력
-		boardFileDao.insertBoardFile(boardFile);
-		
+		int row = boardFileDao.insertBoardFile(boardFile);  
 	}
 }

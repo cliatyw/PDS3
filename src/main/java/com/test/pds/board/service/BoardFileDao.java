@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 public class BoardFileDao {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
-	final String NS = "com.test.pds.board.service.BoardFileMapper";
+	final String NS = "com.test.pds.board.service.BoardFileMapper.";
 	
 	/*BoardFile 입력*/
 	public int insertBoardFile(BoardFile boardFile) {

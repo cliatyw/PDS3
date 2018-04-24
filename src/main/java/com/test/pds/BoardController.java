@@ -23,7 +23,6 @@ import com.test.pds.board.service.BoardService;
 public class BoardController {
 	@Autowired
 	private BoardService boardService;
-	private static final Logger logger = LoggerFactory.getLogger(BoardController.class);
 	
 	@RequestMapping(value = "/addBoard", method = RequestMethod.GET)
 	public String addBoard() {
