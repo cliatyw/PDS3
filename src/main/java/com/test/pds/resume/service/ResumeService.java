@@ -1,5 +1,9 @@
 package com.test.pds.resume.service;
 
-public class ResumeService {
+import org.springframework.stereotype.Service;
 
+@Service
+public class ResumeService {
+	
+	
 }

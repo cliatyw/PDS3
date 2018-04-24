@@ -30,10 +30,12 @@ public class BoardController {
 		return "/board/addBoard";
 	}
 	@RequestMapping(value = "/addBoard", method = RequestMethod.POST)
-	public String addBoard(BoardRequest boardRequest, HttpSession session) {
+	public String addBoard(BoardRequest boardRequest,HttpSession session) {
+		String path = session.getServletContext().getRealPath("/resources/upload");
+		System.out.println(path+"<--경로");
 		//service : BoardRequest -> Board + 파일 폴더 저장
 		//dao : insert	
-		boardService.addBoard(boardRequest);
+		boardService.addBoard(boardRequest,path);
 		return "redirect:/addBoard";
 	}
 	

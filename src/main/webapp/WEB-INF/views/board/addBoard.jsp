@@ -7,7 +7,7 @@
 </head>
 <body>
 	<h1>addBoard</h1>
-	<form enctype="multipart/form-data" action="/addBoard" method="post">
+	<form enctype="multipart/form-data" action="${pageContext.request.contextPath}/addBoard" method="post">
 		<div>boardTitle : <input type="text" name="boardTitle"></div>
 		<div>boardContent : <textarea name="boardContent"></textarea></div>
 		<div>boardFile : <input type="file" name="multipartFile"></div>

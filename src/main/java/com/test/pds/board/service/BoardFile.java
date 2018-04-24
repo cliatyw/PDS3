@@ -6,7 +6,7 @@ public class BoardFile {
 	private String boardFileExt;
 	private String boardFileType;
 	private int boardFileSize;
-	private int board_id; //외래키
+	private int boardId; //외래키
 	
 	public int getBoardFileId() {
 		return boardFileId;
@@ -38,16 +38,16 @@ public class BoardFile {
 	public void setBoardFileSize(int boardFileSize) {
 		this.boardFileSize = boardFileSize;
 	}
-	public int getBoard_id() {
-		return board_id;
+	public int getBoardId() {
+		return boardId;
 	}
-	public void setBoard_id(int board_id) {
-		this.board_id = board_id;
+	public void setBoardId(int boardId) {
+		this.boardId = boardId;
 	}
 	@Override
 	public String toString() {
 		return "BoardFile [boardFileId=" + boardFileId + ", boardFileName=" + boardFileName + ", boardFileExt="
-				+ boardFileExt + ", boardFileType=" + boardFileType + ", boardFileSize=" + boardFileSize + ", board_id="
-				+ board_id + "]";
+				+ boardFileExt + ", boardFileType=" + boardFileType + ", boardFileSize=" + boardFileSize + ", boardId="
+				+ boardId + "]";
 	}
 }

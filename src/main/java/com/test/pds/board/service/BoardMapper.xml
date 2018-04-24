@@ -4,5 +4,35 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="com.test.pds.board.service.BoardMapper">
-
+	<insert id="insertBoard"
+			parameterType="com.test.pds.board.service.Board">
+		INSERT INTO board(
+			board_title
+			,board_content
+		) VALUES (
+			#{boardTitle}
+			,#{boardContent}
+		)
+	</insert>
+	<insert id="insertBoardFile"
+			parameterType="com.test.pds.board.service.BoardFile">
+		<selectKey resultType="Integer" 
+					keyProperty="boardId" 
+					order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		INSERT INTO board_file(
+			board_file_name
+			, board_id
+			, board_file_ext
+			, board_file_type
+			, board_file_size
+		) VALUES (
+			#{boardFileName}
+			, #{boardId}
+			, #{boardFileExt}
+			, #{boardFileType}
+			, #{boardFileSize}
+		)	
+	</insert>				
 </mapper>
