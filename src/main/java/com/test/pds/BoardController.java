@@ -1,3 +1,4 @@
+/*[김도희]*/
 package com.test.pds;
 
 import java.text.DateFormat;
@@ -24,18 +25,16 @@ public class BoardController {
 	@Autowired
 	private BoardService boardService;
 	
-	@RequestMapping(value = "/addBoard", method = RequestMethod.GET)
+	@RequestMapping(value = "/insertBoard", method = RequestMethod.GET)
 	public String addBoard() {
-		return "/board/addBoard";
+		return "/board/insertBoard";
 	}
-	@RequestMapping(value = "/addBoard", method = RequestMethod.POST)
-	public String addBoard(BoardRequest boardRequest,HttpSession session) {
-		String path = session.getServletContext().getRealPath("/resources/upload");
-		System.out.println(path+"<--경로");
+	@RequestMapping(value = "/insertBoard", method = RequestMethod.POST)
+	public String addBoard(BoardRequest boardRequest) {
 		//service : BoardRequest -> Board + 파일 폴더 저장
 		//dao : insert	
-		boardService.addBoard(boardRequest, path);
-		return "redirect:/addBoard";
+		boardService.addBoard(boardRequest);
+		return "redirect:/insertBoard";
 	}
 	
 }

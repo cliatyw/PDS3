@@ -1,3 +1,4 @@
+/*[김도희]*/
 package com.test.pds.resume.service;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -12,7 +13,8 @@ public class ResumeDao {
 	final String NS = "com.test.pds.notice.service.ResumeMapper.";
 	
 	/*Resume 입력*/
-	public void insertResume(Resume resume) {
-	
+	public int insertResume(Resume resume) {
+		sqlSession.insert(NS+"insertResume", resume);
+		return resume.getResumeId();
 	}
 }

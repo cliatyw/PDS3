@@ -4,6 +4,20 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="com.test.pds.notice.service.ResumeFileMapper">
-	<insert id="">
+	<insert id="insertResumeFile"
+			parameterType="com.test.pds.resume.service.ResumeFile">
+		INSERT INTO resume_file(
+			resume_file_name
+			, resume_file_ext
+			, resume_file_type
+			, resume_id
+			, resume_file_size
+		) VALUES (
+			#{resumeFileName}
+			, #{resumeFileExt}
+			, #{resumeFileType}
+			, #{resumeId}
+			, #{resumeFileSize}
+		)
 	</insert>
 </mapper>

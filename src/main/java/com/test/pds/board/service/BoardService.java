@@ -1,3 +1,4 @@
+/*[김도희]*/
 package com.test.pds.board.service;
 
 import java.io.File;
@@ -12,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.test.pds.BoardController;
+import com.test.pds.SystemPath;
 
 @Service
 @Transactional
@@ -20,10 +22,9 @@ public class BoardService {
 	private BoardDao boardDao;
 	@Autowired
 	private BoardFileDao boardFileDao;
-	private static final Logger logger = LoggerFactory.getLogger(BoardController.class);
 	
 	/*Board,BoardFile 입력*/
-	public void addBoard(BoardRequest boardRequest,String path) {
+	public void addBoard(BoardRequest boardRequest) {
 		MultipartFile multipartFile = boardRequest.getMultipartFile();
 		
 		Board board = new Board();
@@ -57,8 +58,8 @@ public class BoardService {
 		int newfileSize= (int)fileSize;
 		boardFile.setBoardFileSize(newfileSize);
 		
-		//파일 저장
-		File file = new File(path+"\\"+filename+"."+fileExt);
+		//파일 저장(절대경로)
+		File file = new File(SystemPath.UPLOAD_PATH+filename+"."+fileExt);
 		try {
 			multipartFile.transferTo(file);
 		} catch (IllegalStateException e) {	
