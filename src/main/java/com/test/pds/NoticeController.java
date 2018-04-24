@@ -31,7 +31,7 @@ public class NoticeController {
 	
 	@RequestMapping(value = "/insertNotice", method = RequestMethod.GET)
 	public String inseryNotice() {
-		return "notice/addNotice";
+		return "notice/insertNotice";
 	}
 	
 	@RequestMapping(value = "/insertNotice", method = RequestMethod.POST)

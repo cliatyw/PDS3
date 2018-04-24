@@ -44,7 +44,7 @@ public class NoticeService {
 		long fileSize = multipartFile.getSize();
 		
 		//파일 저장
-		File file = new File("d:/upload/"+filename+"."+fileExt);
+		File file = new File("C:\\Users\\Administrator\\git\\PDS3\\src\\main\\webapp\\resources\\upload\\"+filename+"."+fileExt);
 		try {
 			multipartFile.transferTo(file);
 		} catch (IllegalStateException e) {
