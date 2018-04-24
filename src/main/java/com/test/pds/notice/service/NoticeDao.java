@@ -1,5 +1,7 @@
 package com.test.pds.notice.service;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate; 
 import org.springframework.beans.factory.annotation.Autowired; 
 import org.springframework.stereotype.Repository; 
@@ -15,7 +17,8 @@ public class NoticeDao {
 		sqlSession.insert(NS+"insertNotice", notice);
 		return notice.getNoticeId();
 	}
-	public int addNoticeFile(NoticeFile noticeFile) {
-		return sqlSession.insert(NS+"addNoticeFile", noticeFile);
-	}
+	public List<Notice> selectNoticeList(){ 
+		return sqlSession.selectList(NS+"selectNoticeList"); 
+	} 
+
 }

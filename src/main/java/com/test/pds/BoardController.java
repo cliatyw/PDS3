@@ -35,7 +35,7 @@ public class BoardController {
 		System.out.println(path+"<--경로");
 		//service : BoardRequest -> Board + 파일 폴더 저장
 		//dao : insert	
-		boardService.addBoard(boardRequest,path);
+		boardService.addBoard(boardRequest, path);
 		return "redirect:/addBoard";
 	}
 	

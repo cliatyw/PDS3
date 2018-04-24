@@ -12,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class BoardService {
 	@Autowired 
 	private BoardDao boardDao;
+	private BoardFileDao boardFileDao;
 	
 	/*Board,BoardFile 입력*/
 	public void addBoard(BoardRequest boardRequest,String path) {
@@ -23,8 +24,8 @@ public class BoardService {
 		board.setBoardTitle(boardRequest.getBoardTitle());
 		board.setBoardContent(boardRequest.getBoardContent());
 		
-		/*DB Board입력*/
-		boardDao.insertBoard(board);
+		/*Board 입력*/
+		int boardId= boardDao.insertBoard(board);
 		
 		BoardFile boardFile = new BoardFile();
 		
@@ -58,8 +59,11 @@ public class BoardService {
 			e.printStackTrace();
 		}
 		
+		//boardId 
+		boardFile.setBoardId(boardId);
+		
 		//DB BoardFile입력
-		boardDao.insertBoardFile(boardFile);
+		boardFileDao.insertBoardFile(boardFile);
 		
 	}
 }
