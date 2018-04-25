@@ -1,5 +1,6 @@
 package com.test.pds;
 
+import java.io.IOException;
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.List;
@@ -38,12 +39,10 @@ public class GalleryController {
 	}
 	
 	@RequestMapping(value = "/insertGallery", method = RequestMethod.POST)
-	public String insertGallery(GalleryRequest galleryRequest, HttpSession session) {
-		System.out.println(galleryRequest);
+	public String insertGallery(GalleryRequest galleryRequest, HttpSession session) throws IOException {
 		String path = session.getServletContext().getRealPath("/resources/upload");
 		//service : GalleryRequest -> Gallery + 파일 폴더 저장
 		//dao : insert
-		System.out.println(path);
 		galleryService.insertGallery(galleryRequest, path);
 		return "redirect:/";
 	}

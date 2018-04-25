@@ -8,11 +8,14 @@ import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.sun.media.jfxmedia.logging.Logger;
+import com.test.pds.SystemPath;
 
 @Service
+@Transactional
 public class NoticeService {
 	@Autowired 
 	private NoticeDao noticeDao;
@@ -44,7 +47,7 @@ public class NoticeService {
 		long fileSize = multipartFile.getSize();
 		
 		//파일 저장
-		File file = new File("C:\\Users\\Administrator\\git\\PDS3\\src\\main\\webapp\\resources\\upload\\"+filename+"."+fileExt);
+		File file = new File(SystemPath.UPLOAD_PATH+filename+"."+fileExt);
 		try {
 			multipartFile.transferTo(file);
 		} catch (IllegalStateException e) {

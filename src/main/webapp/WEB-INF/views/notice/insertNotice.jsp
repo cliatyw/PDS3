@@ -7,7 +7,7 @@
 </head>
 <body>
 	<h1>addNotice</h1>
-	<form enctype="multipart/form-data" action="${pageContext.request.contextPath}/selectNoticeList" method="post">
+	<form enctype="multipart/form-data" action="${pageContext.request.contextPath}/insertNotice" method="post">
 		<div>noticeTitle : <input type="text" name="noticeTitle"></div>
 		<div>noticeContent : <textarea name="noticeContent"></textarea></div>
 		<div>noticeFile : <input type="file" name="multipartFile"></div>
