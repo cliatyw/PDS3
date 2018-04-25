@@ -61,10 +61,13 @@ public class GalleryService {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		//apatch tika 를 사용하여 file의 마임타입을 추출한다
 		Tika tika = new Tika();
 		String mimeType = tika.detect(file);
 		System.out.println(mimeType);
-        if (mimeType.startsWith("image")) {
+		
+		//마임타입이 image로 시작하면 사진이 등록되게 해준다.
+		if (mimeType.startsWith("image")) {
     		galleryFile.setGalleryFileExt(fileExt);
     		galleryFile.setGalleryId(galleryDao.insertGallery(gallery));
     		galleryFile.setGalleryFileName(filename);
