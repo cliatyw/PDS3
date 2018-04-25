@@ -5,10 +5,10 @@
 	<title>Home</title>
 </head>
 <body>
-<h1>
-	Hello world!  
-</h1>
-
-<P>  The time on the server is ${serverTime}. </P>
+<a href="${pageContext.request.contextPath}/insertArticle">Article</a>
+<a href="${pageContext.request.contextPath}/insertBoard">Board</a>
+<a href="${pageContext.request.contextPath}/insertGallery">Gallery</a>
+<a href="${pageContext.request.contextPath}/insertNotice">Notice</a>
+<a href="${pageContext.request.contextPath}/insertResume">Resume</a>
 </body>
 </html>
