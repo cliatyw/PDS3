@@ -16,12 +16,12 @@ public class ResumeController {
 	private ResumeService resumeService;
 	
 	@RequestMapping(value = "/insertResume", method = RequestMethod.GET)
-	public String addResume() {
+	public String insertResume() {
 		return "/resume/insertResume";
 	}
 	
 	@RequestMapping(value = "/insertResume", method = RequestMethod.POST)
-	public String addResume(ResumeRequest resumeRequest) {
+	public String insertResume(ResumeRequest resumeRequest) {
 		resumeService.insertResume(resumeRequest);
 		return "redirect:/insertResume";
 	}

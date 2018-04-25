@@ -5,6 +5,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.UUID;
 
+import javax.activation.MimetypesFileTypeMap;
+import javax.servlet.ServletContext;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +34,7 @@ public class ResumeService {
 		logger.debug("===ResumeService.insertResume 실행===");
 		Resume resume = new Resume();
 		logger.debug("resumeTitle : "+resumeRequest.getResumeTitle());
-		logger.info("resumeContent : "+resumeRequest.getResumeContent());
+		logger.debug("resumeContent : "+resumeRequest.getResumeContent());
 		resume.setResumeTitle(resumeRequest.getResumeTitle());
 		resume.setResumeContent(resumeRequest.getResumeContent());
 		
@@ -63,15 +66,27 @@ public class ResumeService {
 			e.printStackTrace();
 		}
 		
-		/*multipartFile -> resumeFile*/
-		ResumeFile resumeFile = new ResumeFile();
-		resumeFile.setResumeFileName(filename.replace("-", ""));
-		resumeFile.setResumeFileExt(fileExt);
-		resumeFile.setResumeFileSize(newFileSize);
-		resumeFile.setResumeFileType(fileType);
-		resumeFile.setResumeId(resumeId);
-
-		/*resumeFile 입력*/
-		resumeFileDao.insertResumeFile(resumeFile);
+		/*파일 MIME타입(image) 검사*/
+		String MimeFile = new MimetypesFileTypeMap().getContentType(file);
+		logger.debug("MIME TYPE : "+MimeFile);
+		String[] mimeType = {"image/gif","image/ief","image/jpeg","image/tiff","image/x-cmu-raster","image/x-portable-anymap",
+				"image/x-portable-bitmap","image/x-portable-graymap","image/x-portable-pixmap","image/x-rgb","image/x-xbitmap",
+				"image/x-xpixmap","image/x-xwindowdump"};
+		for (String mime : mimeType) {
+			if(mime.equals(MimeFile)) {
+			logger.debug("MIME 타입 image 확인");
+				
+			/*multipartFile -> resumeFile*/
+			ResumeFile resumeFile = new ResumeFile();
+			resumeFile.setResumeFileName(filename.replace("-", ""));
+			resumeFile.setResumeFileExt(fileExt);
+			resumeFile.setResumeFileSize(newFileSize);
+			resumeFile.setResumeFileType(fileType);
+			resumeFile.setResumeId(resumeId);
+	
+			/*resumeFile 입력*/
+			resumeFileDao.insertResumeFile(resumeFile);
+			}
+		}
 	}		
 }

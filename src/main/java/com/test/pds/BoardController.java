@@ -26,14 +26,14 @@ public class BoardController {
 	private BoardService boardService;
 	
 	@RequestMapping(value = "/insertBoard", method = RequestMethod.GET)
-	public String addBoard() {
+	public String insertBoard() {
 		return "/board/insertBoard";
 	}
 	@RequestMapping(value = "/insertBoard", method = RequestMethod.POST)
-	public String addBoard(BoardRequest boardRequest) {
+	public String insertBoard(BoardRequest boardRequest) {
 		//service : BoardRequest -> Board + 파일 폴더 저장
 		//dao : insert	
-		boardService.addBoard(boardRequest);
+		boardService.insertBoard(boardRequest);
 		return "redirect:/insertBoard";
 	}
 	

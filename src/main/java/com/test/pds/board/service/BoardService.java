@@ -24,7 +24,7 @@ public class BoardService {
 	private BoardFileDao boardFileDao;
 	
 	/*Board,BoardFile 입력*/
-	public void addBoard(BoardRequest boardRequest) {
+	public void insertBoard(BoardRequest boardRequest) {
 		MultipartFile multipartFile = boardRequest.getMultipartFile();
 		
 		Board board = new Board();
