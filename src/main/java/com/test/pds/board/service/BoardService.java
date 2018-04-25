@@ -3,6 +3,7 @@ package com.test.pds.board.service;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.UUID;
 
 import org.slf4j.Logger;
@@ -22,10 +23,11 @@ public class BoardService {
 	private BoardDao boardDao;
 	@Autowired
 	private BoardFileDao boardFileDao;
+	private static final Logger logger = LoggerFactory.getLogger(BoardController.class);
 	
 	/*Board,BoardFile 입력*/
 	public void insertBoard(BoardRequest boardRequest) {
-		MultipartFile multipartFile = boardRequest.getMultipartFile();
+		logger.info("====BoardService.insertBoard 실행====");
 		
 		Board board = new Board();
 		System.out.println(boardRequest.getBoardTitle()+"<--제목");
@@ -35,43 +37,41 @@ public class BoardService {
 		
 		/*Board 입력후 boardId를 리턴받는다*/
 		int boardId= boardDao.insertBoard(board);
-		
-		BoardFile boardFile = new BoardFile();
-		
-		//UUID를 이용한 파일 이름
-		UUID uuid = UUID.randomUUID();
-		String filename = uuid.toString();
-		filename.replace("-", "");
-		boardFile.setBoardFileName(filename.replace("-", ""));
+			
+		/*boardImgs의 파일 이름, 확장자, 컨텐트 타입, 사이즈, 저장*/
+		List<MultipartFile> boardImgs = boardRequest.getMultipartFile();
+		if(boardImgs!=null) {
+			for(MultipartFile file : boardImgs) {
+				UUID uuid = UUID.randomUUID();
+				String saveFileName = uuid.toString().replace("-","");
+				int dotIndex = file.getOriginalFilename().lastIndexOf(".");
+				String fileExt = file.getOriginalFilename().substring(dotIndex+1);
+				String fileType = file.getContentType();
+				long fileSize = file.getSize();
+				int newfileSize= (int)fileSize;
 				
-		//파일 확장자
-		int dotIndex = multipartFile.getOriginalFilename().lastIndexOf(".");
-		String fileExt = multipartFile.getOriginalFilename().substring(dotIndex+1);
-		boardFile.setBoardFileExt(fileExt);
-		
-		//파일 컨텐트 타입
-		String fileType = multipartFile.getContentType();
-		boardFile.setBoardFileType(fileType);
-		
-		//파일 사이즈
-		long fileSize = multipartFile.getSize();
-		int newfileSize= (int)fileSize;
-		boardFile.setBoardFileSize(newfileSize);
-		
-		//파일 저장(절대경로)
-		File file = new File(SystemPath.UPLOAD_PATH+filename+"."+fileExt);
-		try {
-			multipartFile.transferTo(file);
-		} catch (IllegalStateException e) {	
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-		//boardId 
-		boardFile.setBoardId(boardId);
-		
-		//DB BoardFile입력
-		int row = boardFileDao.insertBoardFile(boardFile);  
+				BoardFile boardFile = new BoardFile();
+				boardFile.setBoardFileName(saveFileName);
+				boardFile.setBoardFileExt(fileExt);
+				boardFile.setBoardFileType(fileType);
+				boardFile.setBoardFileSize(newfileSize);
+				
+				/*boardId 세팅*/
+				boardFile.setBoardId(boardId);
+				
+				if(boardRequest.getMultipartFile().isEmpty()) {
+					File fileCourse = new File(SystemPath.UPLOAD_PATH+saveFileName+"."+fileExt);
+					try {
+						file.transferTo(fileCourse);
+					} catch (IllegalStateException e) {
+						e.printStackTrace();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+					//DB BoardFile입력
+					int row = boardFileDao.insertBoardFile(boardFile); 
+				}
+			}
+		}			 
 	}
 }

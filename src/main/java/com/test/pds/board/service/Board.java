@@ -8,7 +8,7 @@ public class Board {
 	private String boardTitle;
 	private String boardContent;
 	/*추후 1:N(List)로 바꿔주기*/
-	private BoardFile boardFile;
+	private List<BoardFile> boardFile;
 	
 	public int getBoardId() {
 		return boardId;
@@ -28,10 +28,10 @@ public class Board {
 	public void setBoardContent(String boardContent) {
 		this.boardContent = boardContent;
 	}
-	public BoardFile getBoardFile() {
+	public List<BoardFile> getBoardFile() {
 		return boardFile;
 	}
-	public void setBoardFile(BoardFile boardFile) {
+	public void setBoardFile(List<BoardFile> boardFile) {
 		this.boardFile = boardFile;
 	}
 	@Override
@@ -39,5 +39,4 @@ public class Board {
 		return "Board [boardId=" + boardId + ", boardTitle=" + boardTitle + ", boardContent=" + boardContent
 				+ ", boardFile=" + boardFile + "]";
 	}
-	
 }

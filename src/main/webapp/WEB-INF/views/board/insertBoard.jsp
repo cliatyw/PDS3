@@ -11,8 +11,11 @@
 	<form enctype="multipart/form-data" action="${pageContext.request.contextPath}/insertBoard" method="post">
 		<div>boardTitle : <input type="text" name="boardTitle"></div>
 		<div>boardContent : <textarea name="boardContent"></textarea></div>
-		<div>boardFile : <input type="file" name="multipartFile"></div>
+		<div>boardFile :
+		<div><input type="file" name="multipartFile" value="파일선택"></div>
+		<div><input type="file" name="multipartFile" value="파일선택"></div>
 		<div><input type="submit" value="확인"></div>
+		</div>
 	</form>
 </body>
 </html>

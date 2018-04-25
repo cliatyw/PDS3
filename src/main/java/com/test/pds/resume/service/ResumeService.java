@@ -69,6 +69,8 @@ public class ResumeService {
 		/*파일 MIME타입(image) 검사*/
 		String MimeFile = new MimetypesFileTypeMap().getContentType(file);
 		logger.debug("MIME TYPE : "+MimeFile);
+		
+		/*mimeType의 이미지 종류들*/
 		String[] mimeType = {"image/gif","image/ief","image/jpeg","image/tiff","image/x-cmu-raster","image/x-portable-anymap",
 				"image/x-portable-bitmap","image/x-portable-graymap","image/x-portable-pixmap","image/x-rgb","image/x-xbitmap",
 				"image/x-xpixmap","image/x-xwindowdump"};
@@ -76,7 +78,7 @@ public class ResumeService {
 			if(mime.equals(MimeFile)) {
 			logger.debug("MIME 타입 image 확인");
 				
-			/*multipartFile -> resumeFile*/
+			/*multipartFile -> resumeFile 세팅*/
 			ResumeFile resumeFile = new ResumeFile();
 			resumeFile.setResumeFileName(filename.replace("-", ""));
 			resumeFile.setResumeFileExt(fileExt);
