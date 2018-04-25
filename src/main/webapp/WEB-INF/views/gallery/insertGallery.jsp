@@ -6,17 +6,19 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script>
 $(document).ready(function(){
+	$('#fileAdd').click(function(){
+		$('#fileSection').append('<div><input type="file" id="multipartFile" name="multipartFile" accept="image/*" multiple="multiple"/;></div>')
+	});
 	$('#btn').click(function(){
-		 if($("#file").val()!=""){
-			var ext = $('#file').val().split('.').pop().toLowerCase();
+		if($("#multipartFile").val()!=""){
+			var ext = $('#multipartFile').val().split('.').pop().toLowerCase();
 			if($.inArray(ext,['xwd','xpm','xbm','rgb','ppm','pgm','pbm','pnm','ras','tif','tiff','ief','gif','jpg','jpeg'])==-1){
 				alert('이미지 파일만 업로드 할수 있습니다.');
-				return false;
-			 } else {
-				 $(this).parents('span').find('#form').submit();
-			 } 
-		 } 
-	});
+			} else {
+				$(this).parents('span').find('#form').submit();
+			} 
+		} 
+	}); 
 });
 </script>
 <title>insertGallery.jsp</title>
@@ -27,7 +29,8 @@ $(document).ready(function(){
 		<form enctype="multipart/form-data" action="${pageContext.request.contextPath}/insertGallery" method="post" id="form">
 			<div>galleryTitle : <input type="text" name="galleryTitle"></div>
 			<div>galleryContent : <textarea name="galleryContent"></textarea></div>
-			<div>galleryFile : <input type="file" accept="image/*" name="multipartFile" id="file"></div>
+			<div>galleryFile : <input type="button" value="fileAdd" id="fileAdd"></div>
+			<div id="fileSection"></div>
 			<div><input type="submit" id="btn"></div>
 		</form>
 	</span>
