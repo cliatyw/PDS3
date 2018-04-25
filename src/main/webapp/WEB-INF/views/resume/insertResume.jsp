@@ -28,7 +28,7 @@
 	<form enctype="multipart/form-data" action="${pageContext.request.contextPath}/insertResume" method="post" id="form">
 		<div>resumeTitle : <input type="text" name="resumeTitle"></div>
 		<div>resumeContent : <textarea name="resumeContent"></textarea></div>
-		<div>resumeFile : <input type="file" name="multipartFile" id="file"></div>
+		<div>resumeFile : <input type="file" name="multipartFile" accept="image/*" id="file"></div>
 		<div><input type="button" value="확인" id='btn'></div>
 	</form>
 	</span>

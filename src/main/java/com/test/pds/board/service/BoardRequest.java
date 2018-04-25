@@ -1,12 +1,14 @@
 /*[김도희]*/
 package com.test.pds.board.service;
 
+import java.util.List;
+
 import org.springframework.web.multipart.MultipartFile;
 
 public class BoardRequest {
 	private String boardTitle;
 	private String boardContent;
-	private MultipartFile multipartFile;
+	private List<MultipartFile> multipartFile;
 	
 	public String getBoardTitle() {
 		return boardTitle;
@@ -20,10 +22,10 @@ public class BoardRequest {
 	public void setBoardContent(String boardContent) {
 		this.boardContent = boardContent;
 	}
-	public MultipartFile getMultipartFile() {
+	public List<MultipartFile> getMultipartFile() {
 		return multipartFile;
 	}
-	public void setMultipartFile(MultipartFile multipartFile) {
+	public void setMultipartFile(List<MultipartFile> multipartFile) {
 		this.multipartFile = multipartFile;
 	}
 	@Override

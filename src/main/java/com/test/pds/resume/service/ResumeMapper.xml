@@ -16,7 +16,7 @@
 			, resume_content
 		) VALUES (
 			#{resumeTitle}
-			,#{resumeContent}
+			, #{resumeContent}
 		)
 	</insert>			
 </mapper>
