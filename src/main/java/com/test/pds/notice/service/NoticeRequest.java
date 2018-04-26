@@ -1,12 +1,15 @@
 /*[최상욱]*/
 package com.test.pds.notice.service;
 
+import java.util.List;
+
 import org.springframework.web.multipart.MultipartFile;
 
 public class NoticeRequest {
 	private String noticeTitle;
 	private String noticeContent;
-	private MultipartFile multipartFile;
+	private List<MultipartFile> multipartFile;
+	
 	public String getNoticeTitle() {
 		return noticeTitle;
 	}
@@ -19,11 +22,10 @@ public class NoticeRequest {
 	public void setNoticeContent(String noticeContent) {
 		this.noticeContent = noticeContent;
 	}
-	public MultipartFile getMultipartFile() {
+	public List<MultipartFile> getMultipartFile() {
 		return multipartFile;
 	}
-	public void setMultipartFile(MultipartFile multipartFile) {
+	public void setMultipartFile(List<MultipartFile> multipartFile) {
 		this.multipartFile = multipartFile;
 	}
-
 }

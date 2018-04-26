@@ -8,14 +8,14 @@ import java.util.List;
 import java.util.UUID;
 
 import org.apache.tika.Tika;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.sun.media.jfxmedia.logging.Logger;
-import com.test.pds.GalleryController;
+import com.test.pds.BoardController;
 import com.test.pds.SystemPath;
 
 @Service
@@ -25,13 +25,18 @@ public class GalleryService {
 	private GalleryDao galleryDao;
 	@Autowired
 	private GalleryFileDao galleryFileDao;
-
+	
+	private static final Logger logger = LoggerFactory.getLogger(GalleryService.class);
+	
 	public void insertGallery(GalleryRequest galleryRequest, String path) throws IOException {
+		List<MultipartFile> multipartFile = galleryRequest.getMultipartFile();
+		
 		Gallery gallery = new Gallery();
 		gallery.setGalleryTitle(galleryRequest.getGalleryTitle());
 		gallery.setGalleryContent(galleryRequest.getGalleryContent());
-		galleryDao.insertGallery(gallery);
-		List<MultipartFile> multipartFile = galleryRequest.getMultipartFile();
+		int galleryId = galleryDao.insertGallery(gallery);
+
+		
 		if (multipartFile != null) {
 			for (MultipartFile mf : multipartFile) {
 				GalleryFile galleryFile = new GalleryFile();
@@ -64,7 +69,7 @@ public class GalleryService {
 				// 마임타입이 image로 시작하면 사진이 등록되게 해준다.
 				if (mimeType.startsWith("image")) {
 					galleryFile.setGalleryFileExt(fileExt);
-					galleryFile.setGalleryId(galleryDao.insertGallery(gallery));
+					galleryFile.setGalleryId(galleryId);
 					galleryFile.setGalleryFileName(filename);
 					galleryFile.setGalleryFileType(fileType);
 					galleryFile.setGalleryFileSize((int) fileSize);
