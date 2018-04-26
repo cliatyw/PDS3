@@ -18,6 +18,7 @@ import com.test.pds.SystemPath;
 import com.test.pds.gallery.service.GalleryService;
 
 @Service
+/*Transactional service에서 오류가 발생시 전부 취소시킨다.*/
 @Transactional
 public class NoticeService {
 	@Autowired
@@ -30,11 +31,11 @@ public class NoticeService {
 		Notice notice = new Notice();
 		notice.setNoticeTitle(noticeRequest.getNoticeTitle());
 		notice.setNoticeContent(noticeRequest.getNoticeContent());
-/*		noticeDao.insertNotice(notice);*/
+		/*noticeDao.insertNotice(notice);*/
 		System.out.println(notice.getNoticeContent()+"<--notice");
 		System.out.println(notice.getNoticeTitle()+"<--notice");
 		List<MultipartFile> multipartFile = noticeRequest.getMultipartFile();
-		
+		/*notice를 insert 시킨후 리턴받은값을 noticeid에 넣는다*/
 		int noticeID = noticeDao.insertNotice(notice);
 		
 		if (multipartFile != null) {

@@ -1,3 +1,4 @@
+<!-- [최상욱] -->
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -18,7 +19,7 @@ $(document).ready(function(){
 	$('#remove').click(function(){ 
 		$('#upload').children().last().remove();
 	});
-	// send 버턴 클릭시 폼유효성 검사후 submit
+	// btn 버턴 클릭시 폼유효성 검사후 submit
 	$('#btn').click(function(){
 		if($('#noticeTitle').val().length < 1) {
 			alert('title을 입력하세요');

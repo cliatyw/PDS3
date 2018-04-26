@@ -32,6 +32,8 @@ public class GalleryService {
 		List<MultipartFile> multipartFile = galleryRequest.getMultipartFile();
 		
 		Gallery gallery = new Gallery();
+		
+		
 		gallery.setGalleryTitle(galleryRequest.getGalleryTitle());
 		gallery.setGalleryContent(galleryRequest.getGalleryContent());
 		int galleryId = galleryDao.insertGallery(gallery);

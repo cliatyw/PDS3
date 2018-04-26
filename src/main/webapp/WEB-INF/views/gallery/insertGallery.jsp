@@ -1,3 +1,4 @@
+<!-- [최상욱] -->
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -6,6 +7,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script>
 $(document).ready(function(){
+	/* add버튼 클릭시 <input type="file"> 추가 */
 	$('#fileAdd').click(function(){
 		if($('.multipartFile').length < 5) {
 			$('#upload').append('<div><input class="multipartFile" type="file" id="multipartFile" name="multipartFile" accept="image/*" multiple="multiple"/;></div>')
@@ -13,9 +15,11 @@ $(document).ready(function(){
 			alert('5개 이상 지정안됨');
 		}
 	});
+	/* remove버튼 클릭시 마지막 <input type="file"> 삭제 */
 	$('#remove').click(function(){ 
 		$('#upload').children().last().remove();
 	});
+	/*  btn 버턴 클릭시 폼유효성 검사후 submit */
 	$('#btn').click(function(){
 		if($('#galleryTitle').val().length < 1) {
 			alert('title을 입력하세요');
@@ -28,14 +32,22 @@ $(document).ready(function(){
 			$('.multipartFile').each(function(index, item){
 				if($(this).val().length <1) {
 					flag = true;
+					if(flag) {
+						alert('파일을 선택하세요');
+						return;
+					}
 				}
 			});
-			if(flag) {
-				alert('파일을 선택하세요');
-			} else {
-				alert('submit 실행...');
-				$('form').submit();
+			/* 이미지 파일만 업로드 */
+			for(var i=0; i < $('.multipartFile').length; i++){
+				var ext = $('.multipartFile:eq('+i+')').val().split('.').pop().toLowerCase();
+				if($.inArray(ext,['xwd','xpm','xbm','rgb','ppm','pgm','pbm','pnm','ras','tif','tiff','ief','gif','jpg','jpeg'])==-1){
+					alert('이미지 파일만 선택하세요');
+					return;
+				}
 			}
+			alert('submit 실행...');
+			$('form').submit();
 		}
 	});
 });
