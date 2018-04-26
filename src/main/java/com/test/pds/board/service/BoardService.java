@@ -35,7 +35,7 @@ public class BoardService {
 		board.setBoardTitle(boardRequest.getBoardTitle());
 		board.setBoardContent(boardRequest.getBoardContent());
 		
-		/*Board 입력후 boardId를 리턴받는다*/
+		/*Board 입력후 boardId를 리턴받는다(다중파일 업로드시 id자동증가 방지)*/
 		int boardId= boardDao.insertBoard(board);
 			
 		/*boardImgs의 파일 이름, 확장자, 컨텐트 타입, 사이즈, 저장*/

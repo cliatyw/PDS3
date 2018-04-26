@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> 
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>insertResume.jsp</title>
@@ -26,10 +27,10 @@
 	<h1>insertResume</h1>
 	<span>
 	<form enctype="multipart/form-data" action="${pageContext.request.contextPath}/insertResume" method="post" id="form">
-		<div>resumeTitle : <input type="text" name="resumeTitle"></div>
-		<div>resumeContent : <textarea name="resumeContent"></textarea></div>
+		<div>resumeTitle : <input type="text" name="resumeTitle" class="form-control" placeholder="resumeTitle"></div>
+		<div>resumeContent : <textarea name="resumeContent" class="form-control" placeholder="resumeContent"></textarea></div>
 		<div>resumeFile : <input type="file" name="multipartFile" accept="image/*" id="file"></div>
-		<div><input type="button" value="확인" id='btn'></div>
+		<div><input type="button" value="확인" id='btn' class="btn btn-primary btn-lg btn-block"></div>
 	</form>
 	</span>
 </body>
