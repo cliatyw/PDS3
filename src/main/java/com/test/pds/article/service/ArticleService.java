@@ -1,3 +1,4 @@
+/*[김기성]*/
 package com.test.pds.article.service;
 
 import java.io.File;
@@ -56,44 +57,52 @@ public class ArticleService {
 			 */
 			for (MultipartFile list : multipartFile) {
 				/*
-				 * uuid활용하여 랜덤이름 생성 후 fileName에 대입
+				 * 다수의 파일중 한개가 없을 때 확장자는 빈칸으로, size는 0으로 저장되는데 그것을 방지하여 db에 저장하지 않기 위한 if문
 				 */
-				ArticleFile articleFile = new ArticleFile();
-				UUID uuid = UUID.randomUUID();
-				String fileName = uuid.toString();
-				fileName = fileName.replace("-", "");
-				/*
-				 * ext, type, size 대입
-				 */
-				int dotIndex = list.getOriginalFilename().lastIndexOf(".");
-				String fileExt = list.getOriginalFilename().substring(dotIndex + 1);
+				if(!list.isEmpty()) {
+					/*
+					 * uuid활용하여 랜덤이름 생성 후 fileName에 대입
+					 */
+					ArticleFile articleFile = new ArticleFile();
+					UUID uuid = UUID.randomUUID();
+					String fileName = uuid.toString();
+					fileName = fileName.replace("-", "");
+					/*
+					 * ext, type, size 대입
+					 */
+					int dotIndex = list.getOriginalFilename().lastIndexOf(".");
+					String fileExt = list.getOriginalFilename().substring(dotIndex + 1);
 
-				String fileType = list.getContentType();
-				logger.debug("ArticleService.insertArticle.multipartFile.fileType : "+fileType);
-				long fileSize = list.getSize();
-				/*
-				 * 고정위치에 파일을 생성하여, 업로드 받은 파일을 그위치에 놓는다.
-				 */
-				File file = new File(SystemPath.UPLOAD_PATH + fileName + "." + fileExt);
-				try {
-					list.transferTo(file);
-				} catch (IllegalStateException e) {
-					e.printStackTrace();
-				} catch (IOException e) {
-					e.printStackTrace();
+					String fileType = list.getContentType();
+					logger.debug("ArticleService.insertArticle.multipartFile.fileType : "+fileType);
+					long fileSize = list.getSize();
+					/*
+					 * 고정위치에 파일을 생성하여, 업로드 받은 파일을 그위치에 놓는다.
+					 */
+					File file = new File(SystemPath.UPLOAD_PATH + fileName + "." + fileExt);
+					try {
+						list.transferTo(file);
+					} catch (IllegalStateException e) {
+						e.printStackTrace();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+					/*
+					 * 지금까지 file정보를 articleFile에 셋팅하고 Dao에 insert를 실행시킨다.
+					 */
+					articleFile.setArticleId(fileId);
+					articleFile.setArticleFileName(fileName);
+					articleFile.setArticleFileExt(fileExt);
+					articleFile.setArticleFileType(fileType);
+					articleFile.setArticleFileSize((int) fileSize);
+					/*
+					트랜잭션이 잘되나 확인용
+					if(true) {
+						throw new RuntimeException();
+					}
+					*/
+					articleFileDao.insertArticleFile(articleFile);
 				}
-				/*
-				 * 지금까지 file정보를 articleFile에 셋팅하고 Dao에 insert를 실행시킨다.
-				 */
-				articleFile.setArticleId(fileId);
-				articleFile.setArticleFileName(fileName);
-				articleFile.setArticleFileExt(fileExt);
-				articleFile.setArticleFileType(fileType);
-				articleFile.setArticleFileSize((int) fileSize);
-				/*
-				 * 트랜잭션이 잘되나 확인용 if (true) { throw new RuntimeException(); }
-				 */
-				articleFileDao.insertArticleFile(articleFile);
 			}
 		}
 	}

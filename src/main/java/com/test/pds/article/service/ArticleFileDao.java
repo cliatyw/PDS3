@@ -1,3 +1,4 @@
+/*[김기성]*/
 package com.test.pds.article.service;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -15,7 +16,6 @@ public class ArticleFileDao {
 	private static final Logger logger = LoggerFactory.getLogger(ArticleFileDao.class);
 	
 	final String NS = "com.test.pds.article.service.ArticleFileMapper.";
-	
 	/*
 	 * articleFile을 매개변수로 받아 insert시킨후 row를 리턴
 	 */
