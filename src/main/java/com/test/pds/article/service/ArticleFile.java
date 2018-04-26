@@ -1,6 +1,6 @@
 /*[김기성]*/
 package com.test.pds.article.service;
-
+/* articleFile tabel */
 public class ArticleFile {
 	private int articleFileId;
 	private int articleId;

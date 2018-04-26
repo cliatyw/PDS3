@@ -2,9 +2,7 @@
 package com.test.pds.article.service;
 
 import java.util.List;
-/*
- * article table
- */
+/*article table*/
 public class Article {
 	private int articleId;
 	private String articleTitle;

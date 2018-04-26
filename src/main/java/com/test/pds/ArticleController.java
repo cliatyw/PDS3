@@ -28,11 +28,9 @@ public class ArticleController {
 		model.addAttribute("path", path);
 		return "article/selectArticleList";
 	}
-	/*
-	 * insertArticle 매핑
-	 * get방식으로 입력창을 foward하고
-	 * post방식으로 articleRequest로 입력값을 받아 service에 insert를 호출한 후 redirect한다.
-	 */
+	/*insertArticle 매핑
+	get방식으로 입력창을 foward하고
+	post방식으로 articleRequest로 입력값을 받아 service에 insert를 호출한 후 redirect한다.*/
 	@RequestMapping(value = "/insertArticle", method = RequestMethod.GET)
 	public String insertArticle() {
 		return "article/insertArticle";

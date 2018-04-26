@@ -22,9 +22,7 @@ public class ArticleDao {
 	public List<Article> selectArticle() {
 		return sqlSession.selectList(NS+"selectArticleList");
 	}
-	/*
-	 * article 매개변수로 받아 article 입력처리 후 id값을 리턴받는다
-	 */
+	/*article 매개변수로 받아 article 입력처리 후 id값을 리턴받는다.*/
 	public int insertArticle(Article article) {
 		sqlSession.insert(NS+"insertArticle", article);
 		return article.getArticleId();

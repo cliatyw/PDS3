@@ -5,7 +5,8 @@
   
 <mapper namespace="com.test.pds.article.service.ArticleFileMapper">
 	<!-- articleFile을 매개변수로 받아 id, name, ext, type, size를 입력하는 쿼리문 -->
-	<insert id="insertArticleFile" parameterType="com.test.pds.article.service.ArticleFile">
+	<insert id="insertArticleFile"
+		parameterType="com.test.pds.article.service.ArticleFile">
 		INSERT INTO article_file(
 			article_id
 			, article_file_name

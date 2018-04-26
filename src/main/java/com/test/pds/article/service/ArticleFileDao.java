@@ -16,9 +16,7 @@ public class ArticleFileDao {
 	private static final Logger logger = LoggerFactory.getLogger(ArticleFileDao.class);
 	
 	final String NS = "com.test.pds.article.service.ArticleFileMapper.";
-	/*
-	 * articleFile을 매개변수로 받아 insert시킨후 row를 리턴
-	 */
+	/*articleFile을 매개변수로 받아 insert시킨후 row를 리턴*/
 	public int insertArticleFile(ArticleFile articleFile) {
 		int row = sqlSession.insert(NS+"insertArticleFile", articleFile);
 		return row;

@@ -4,8 +4,9 @@ package com.test.pds.article.service;
 import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
-
+/*입력할 때 필요한 요소들만 만든 class*/
 public class ArticleRequest {
+	
 	private String articleTitle;
 	private String articleContent;
 	private List<MultipartFile> multipartFile;
