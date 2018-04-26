@@ -27,11 +27,11 @@ public class BoardService {
 	
 	/*Board,BoardFile 입력*/
 	public void insertBoard(BoardRequest boardRequest) {
-		logger.info("====BoardService.insertBoard 실행====");
+		logger.debug("====BoardService.insertBoard 실행====");
 		
 		Board board = new Board();
-		System.out.println(boardRequest.getBoardTitle()+"<--제목");
-		System.out.println(boardRequest.getBoardContent()+"<--내용");
+		logger.debug("BoardTitle : "+boardRequest.getBoardTitle());
+		logger.debug("BoardContent : "+boardRequest.getBoardContent());
 		board.setBoardTitle(boardRequest.getBoardTitle());
 		board.setBoardContent(boardRequest.getBoardContent());
 		
@@ -41,6 +41,7 @@ public class BoardService {
 		/*boardImgs의 파일 이름, 확장자, 컨텐트 타입, 사이즈, 저장*/
 		List<MultipartFile> boardImgs = boardRequest.getMultipartFile();
 		if(boardImgs!=null) {
+			/*다수파일(1:N) 입력*/
 			for(MultipartFile file : boardImgs) {
 				UUID uuid = UUID.randomUUID();
 				String saveFileName = uuid.toString().replace("-","");
@@ -54,12 +55,14 @@ public class BoardService {
 				boardFile.setBoardFileName(saveFileName);
 				boardFile.setBoardFileExt(fileExt);
 				boardFile.setBoardFileType(fileType);
-				boardFile.setBoardFileSize(newfileSize);
-				
+				boardFile.setBoardFileSize(newfileSize);	
 				/*boardId 세팅*/
 				boardFile.setBoardId(boardId);
+				logger.debug("boardFile : "+boardFile);
 				
-				if(boardRequest.getMultipartFile().isEmpty()) {
+				/*빈파일을 넘겨받았을시 DB입력 불가*/
+				if(!file.isEmpty()) {
+					logger.debug("boardFile 저장공간 확인");
 					File fileCourse = new File(SystemPath.UPLOAD_PATH+saveFileName+"."+fileExt);
 					try {
 						file.transferTo(fileCourse);
@@ -68,8 +71,8 @@ public class BoardService {
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
-					//DB BoardFile입력
-					int row = boardFileDao.insertBoardFile(boardFile); 
+					/*DB BoardFile입력*/
+					boardFileDao.insertBoardFile(boardFile); 
 				}
 			}
 		}			 

@@ -35,10 +35,10 @@ public class BoardController {
 	@RequestMapping(value = "/insertBoard", method = RequestMethod.POST)
 	public String insertBoard(BoardRequest boardRequest) {
 		List<MultipartFile> boardImgs = boardRequest.getMultipartFile();
-		logger.info("=====BoardController.insertBoard 실행=====");
+		logger.debug("=====BoardController.insertBoard 실행=====");
 		if(boardImgs != null) {
 			for(MultipartFile file : boardImgs) {
-				logger.info("boardImgs : "+file);
+				logger.debug("boardImgs : "+file);
 			}
 		}
 		//service : BoardRequest -> Board + 파일 폴더 저장

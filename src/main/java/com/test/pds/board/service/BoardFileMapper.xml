@@ -12,12 +12,13 @@
 			, board_file_ext
 			, board_file_type
 			, board_file_size
-		) VALUES (
+		) VALUES (	
 			#{boardFileName}
 			, #{boardId}
 			, #{boardFileExt}
 			, #{boardFileType}
 			, #{boardFileSize}
 		)	
+			
 	</insert>			
 </mapper>
