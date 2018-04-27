@@ -3,6 +3,7 @@ package com.test.pds.board.service;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -80,9 +81,15 @@ public class BoardService {
 		}			 
 	}
 	
-	/*BoardList 검색 (Board의 Id,title,content/BoardFile의 filename)*/
+	/*BoardList 검색 (Board의 Id,title)*/
 	public List<Board> selectBoardList() {
 		logger.debug("===========BoardService.selectBoardList 실행============");
 		return boardDao.selectBoardList();
+	}
+	
+	/*boardId를 매개변수로 받아 게시판 상세보기(Board의 content와 BoardFile의 boardFileName) 검색*/
+	public List<Board> selectBoardDetail(int boardId){
+		logger.debug("===========BoardService.selectBoardDetail 실행============");		
+		return boardDao.selectBoardDetail(boardId);
 	}
 }

@@ -16,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.test.pds.board.service.Board;
@@ -56,7 +57,7 @@ public class BoardController {
 	public String selectBoardList(Model model) {
 		
 		logger.debug("=========BoardController.selectBoardList 실행==========");
-		/*list에 Board의 id,title,content와 BoardFile의 filename이 담겨있다*/
+		/*list에 Board의 id,title이 담겨있다*/
 		List<Board> list = boardService.selectBoardList();
 		logger.debug("BoardList : "+list);
 		model.addAttribute("list", list);
@@ -65,7 +66,14 @@ public class BoardController {
 	
 	/*게시판 상세보기(내용,파일)*/
 	@RequestMapping(value = "/selectBoardDetail", method = RequestMethod.GET)
-	public String selectBoardDetail() {
+	public String selectBoardDetail(Model model,
+									@RequestParam(value="boardId") int boardId) {
+		
+		logger.debug("=========BoardController.selectBoardDetail 실행==========");
+		logger.debug("boardId : "+boardId);
+		List<Board> list = boardService.selectBoardDetail(boardId);
+		logger.debug("BoardDetail - list : "+list);
+		model.addAttribute("list", list);
 		return "/board/selectBoardDetail";
 	}
 }

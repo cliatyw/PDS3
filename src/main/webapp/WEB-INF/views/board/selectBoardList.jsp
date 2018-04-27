@@ -17,7 +17,7 @@
 		<c:forEach var="board" items="${list}">
 		<tbody>
 			<td>${board.boardId}</td>
-			<td><a href="${pageContext.request.contextPath}/selectBoardDetail">${board.boardTitle}</a></td>
+			<td><a href="${pageContext.request.contextPath}/selectBoardDetail?boardId=${board.boardId}">${board.boardTitle}</a></td>
 		</tbody>
 		</c:forEach>
 	</table>	
