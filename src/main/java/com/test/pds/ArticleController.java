@@ -1,6 +1,8 @@
 /*[김기성]*/
 package com.test.pds;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.test.pds.article.service.ArticleRequest;
 import com.test.pds.article.service.ArticleService;
@@ -22,10 +25,15 @@ public class ArticleController {
 	private static final Logger logger = LoggerFactory.getLogger(ArticleController.class);
 	
 	@RequestMapping(value = "/selectArticleList", method = RequestMethod.GET)
-	public String selectArticleList(Model model, HttpSession session) {
-		String path = session.getServletContext().getRealPath("/resources/upload");
-		model.addAttribute("list", articleService.selectArticleList());
-		model.addAttribute("path", path);
+	public String selectArticleList(Model model
+			, @RequestParam(value="currentPage", defaultValue="1") int currentPage
+			, @RequestParam(value="pagePerRow", defaultValue="10", required=true) int pagePerRow) {
+		System.out.println("....");
+		Map<String, Object> map = articleService.selectArticleList(currentPage, pagePerRow);
+		model.addAttribute("list", map.get("list"));
+		model.addAttribute("lastPage", map.get("lastPage"));
+		model.addAttribute("currentPage", currentPage);
+		model.addAttribute("pagePerRow", pagePerRow);
 		return "article/selectArticleList";
 	}
 	/*insertArticle 매핑

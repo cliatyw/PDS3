@@ -2,6 +2,7 @@
 package com.test.pds.article.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.slf4j.Logger;
@@ -19,8 +20,12 @@ public class ArticleDao {
 	
 	final String NS = "com.test.pds.article.service.ArticleMapper.";
 	
-	public List<Article> selectArticle() {
-		return sqlSession.selectList(NS+"selectArticleList");
+	public int totalCountArticle() {
+		return sqlSession.selectOne(NS+"totalCountArticle");
+	}
+	
+	public List<Article> selectArticleList(Map<String, Integer> map) {
+		return sqlSession.selectList(NS+"selectArticleList", map);
 	}
 	/*article 매개변수로 받아 article 입력처리 후 id값을 리턴받는다.*/
 	public int insertArticle(Article article) {

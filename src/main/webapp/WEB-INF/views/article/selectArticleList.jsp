@@ -15,7 +15,6 @@
 				<th>articleId</th>
 				<th>articleTitle</th>
 				<th>articleContent</th>
-				<th>articleFile</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -24,7 +23,7 @@
 					<td>${article.articleId}</td>
 					<td>${article.articleTitle}</td>
 					<td>${article.articleContent}</td>
-					<td><a href="/pds/resources/upload/${article.articleFile.articleFileName}.${article.articleFile.articleFileExt}" download target="_blank">${article.articleFile.articleFileName}</a></td>
+					<%-- <td><a href="/pds/resources/upload/${article.articleFile.articleFileName}.${article.articleFile.articleFileExt}" download target="_blank">${article.articleFile.articleFileName}</a></td> --%>
 				</tr>
 			</c:forEach>
 		</tbody>

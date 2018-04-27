@@ -7,7 +7,7 @@ public class Article {
 	private int articleId;
 	private String articleTitle;
 	private String articleContent;
-	private ArticleFile articleFile;
+	private List<ArticleFile> articleFile;
 	
 	public int getArticleId() {
 		return articleId;
@@ -27,13 +27,13 @@ public class Article {
 	public void setArticleContent(String articleContent) {
 		this.articleContent = articleContent;
 	}
-	public ArticleFile getArticleFile() {
+	public List<ArticleFile> getArticleFile() {
 		return articleFile;
 	}
-	public void setArticleFile(ArticleFile articleFile) {
+	public void setArticleFile(List<ArticleFile> articleFile) {
 		this.articleFile = articleFile;
 	}
-
+	
 	@Override
 	public String toString() {
 		return "Article [articleId=" + articleId + ", articleTitle=" + articleTitle + ", articleContent="

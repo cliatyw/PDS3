@@ -3,7 +3,9 @@ package com.test.pds.article.service;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.slf4j.Logger;
@@ -26,8 +28,29 @@ public class ArticleService {
 
 	private static final Logger logger = LoggerFactory.getLogger(ArticleService.class);
 
-	public List<Article> selectArticleList() {
-		return articleDao.selectArticle();
+	public Map<String, Object> selectArticleList(int currentPage, int pagePerRow) {
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		
+		int beginRow = (currentPage-1)*pagePerRow;
+		map.put("beginRow", beginRow);
+		map.put("pagePerRow", pagePerRow);
+		System.out.println("...");
+		List<Article> list = articleDao.selectArticleList(map);
+		System.out.println(".....");
+		int total = articleDao.totalCountArticle();
+		
+		int lastPage = 0;
+		if(total%pagePerRow == 0) {
+			lastPage = total/pagePerRow;
+		}else {
+			lastPage = total/pagePerRow+1;
+		}
+		
+		Map<String, Object> returnMap = new HashMap<String, Object>();
+		returnMap.put("list", list);
+		returnMap.put("lastPage", lastPage);
+		
+		return returnMap;
 	}
 	/*articleRequest를 매개변수로 받아 article에 셋팅하고, multipartFile을 얻어 대입하여 속성들을 얻은 후 Dao를 호출한다.*/
 	public void insertArticle(ArticleRequest articleRequest) {
