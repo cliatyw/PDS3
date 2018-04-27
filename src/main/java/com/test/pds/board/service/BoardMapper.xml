@@ -18,5 +18,31 @@
 			#{boardTitle}
 			,#{boardContent}
 		)
-	</insert>			
+	</insert>
+	<select id="selectBoardList"
+			resultMap="resultBoard">
+		SELECT 
+			board.board_id AS boardId
+			, board.board_title AS boardTitle
+			, board.board_content AS boardContent
+			,board_file.board_file_name AS boardFileName 
+		FROM board
+		INNER JOIN board_file 
+		ON board.board_id = board_file.board_id
+		WHERE board_file.board_id = board.board_id
+	</select>
+	<resultMap type="com.test.pds.board.service.Board" 
+				id="resultBoard">
+		<id column="boardId" 
+			property="boardId"/>					
+		<result column="boardTitle" 
+				property="boardTitle"/>					
+		<result column="boardContent" 
+				property="boardContent"/>
+		<collection property="boardFile" 
+					ofType="com.test.pds.board.service.BoardFile">
+			<id column="boardFileName" 
+				property="boardFileName"/>
+		</collection>
+	</resultMap>								
 </mapper>
