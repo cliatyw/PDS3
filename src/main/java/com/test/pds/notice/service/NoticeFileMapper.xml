@@ -4,13 +4,28 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="com.test.pds.notice.service.NoticeFileMapper">
-		<insert id="insertNoticeFile" 
-				parameterType="com.test.pds.notice.service.NoticeFile">
+	
+	 <resultMap type="com.test.pds.notice.service.Notice" id="resultNotice">
+		<result column="notice_id" property="noticeId"/>
+		<result column="notice_title" property="noticeTitle"/>
+		<result column="notice_content" property="noticeContent"/>
+			<collection property="noticeFile" ofType="com.test.pds.notice.service.NoticeFile">
+				<id column="notic_file_id" property="noticeFileId"/>
+				<result column="notice_file_name" property="noticeFileName"/>
+				<result column="notice_file_ext" property="noticeFileExt"/>
+				<result column="notice_file_type" property="noticeFileType"/>
+				<result column="notice_file_size" property="noticeFileSize"/>
+				<result column="notice_id" property="noticeId"/>
+			</collection>
+	</resultMap>
+
+	<insert id="insertNoticeFile" 
+			parameterType="com.test.pds.notice.service.NoticeFile">
 		INSERT INTO notice_file(
-			notic_file_name
-			,notic_file_ext
-			,notic_file_type
-			,notic_file_size
+			notice_file_name
+			,notice_file_ext
+			,notice_file_type
+			,notice_file_size
 			,notice_id
 		)VALUES(
 			#{noticeFileName}
@@ -20,4 +35,18 @@
 			,#{noticeId})
 	</insert>
 	
+	<select id="selectNoticeDetail"  
+			parameterType="int"  
+			resultMap="resultNotice"> 
+		SELECT 
+			n.notice_id
+			,n.notice_content
+			,f.notice_file_name
+			,f.notice_file_id
+			,f.notice_file_ext
+		FROM notice n inner join notice_file f 
+		on n.notice_id = f.notice_id 
+		WHERE n.notice_id = #{noticeId}
+		ORDER BY notice_file_id ASC
+	</select>
 </mapper>

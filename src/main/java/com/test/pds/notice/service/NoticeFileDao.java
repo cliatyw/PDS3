@@ -18,5 +18,9 @@ public class NoticeFileDao {
 		int row = sqlSession.insert(NS+"insertNoticeFile", noticeFile);
 		return row;
 	}
+	
+	public Notice selectNoticeDetail(int noticeId){ 
+		return sqlSession.selectOne(NS+"selectNoticeDetail", noticeId); 
+	} 
 
 }

@@ -42,19 +42,65 @@ $(document).ready(function(){
 			}
 		}
 	});
+	$('#list').click(function(){
+		location.href = "${pageContext.request.contextPath}/selectNoticeList";
+	});
 });
 </script>
 <title>Insert title here</title>
 </head>
 <body>
 	<h1>addNotice</h1>
+	<TABLE border='0' width='600' cellpadding='0' cellspacing='0'>
+		<TR>
+			<TD><hr size='1' noshade>
+			</TD>
+	 	</TR>
+	</TABLE>
 	<form enctype="multipart/form-data" action="${pageContext.request.contextPath}/insertNotice" method="post" id="form">
-		<div>noticeTitle : <input type="text" name="noticeTitle" id="noticeTitle"></div>
+		<TABLE border='0' width='600' cellpadding='2' cellspacing='2'>
+			<TR>
+				<TD width='150' bgcolor='cccccc'>
+					<font size='2'><center><b>제목</b></center></font>
+				</TD>
+				<TD>
+					<font size='2'>
+					<input type="text" size='70' maxlength='50' name="noticeTitle" id="noticeTitle"></font>
+				</TD>
+			</TR>
+			<TR>
+				<TD width='150' bgcolor='cccccc'>
+					<font size='2'><center><b>내용</b></center></font>
+				</TD>
+				<TD>
+	       			<font size='2'><textarea wrap='hard' cols='70' rows='15' name="noticeContent" id="noticeContent"></textarea></font>
+	      		</TD>
+			</TR>
+			<TR>
+		      		<TD colspan='2'><hr size='1' noshade></TD>
+
+			</TR>
+			<TR>
+
+				<TD align='center' colspan='2' width='100%'>
+				<div align='left' id="upload"></div>
+				<div align='left' ><input type="button" value="파일첨부" id="fileAdd"></div>
+				<div align='left' ><input id="remove" type="button" value="파일제거"></div>
+				<TABLE>
+					<TR>
+						<TD width='100' align='center'><input Type = 'Reset' Value = '다시 작성'></TD>
+						<TD width='200' align='center'><input Type = 'button' Value = '등록' id="btn"></TD>
+						<TD width='200' align='center'><input Type = 'button' Value = '목록' id='list'></TD>
+					</TR>
+				</TABLE>
+				</TD>
+			</TR>
+		</TABLE>
+		<!-- <div>noticeTitle : <input type="text" name="noticeTitle" id="noticeTitle"></div>
 		<div>noticeContent : <textarea name="noticeContent" id="noticeContent"></textarea></div>
-		<div id="upload"></div>
-		<div>noticeFile : <input type="button" value="fileAdd" id="fileAdd"></div>
-		<input id="remove" type="button" value="remove">
-		<div><input type="button" id="btn" value="입력"></div>
+		
+		
+		<div><input type="button" id="btn" value="입력"></div> -->
 	</form>
 </body>
 </html>

@@ -82,5 +82,9 @@ public class NoticeService {
 		list = noticeDao.selectNoticeList();
 		return list;
 	}
+	
+	public Notice selectNoticeDetail(int noticeId) {
+		return noticeFileDao.selectNoticeDetail(noticeId);
+	}
 
 }

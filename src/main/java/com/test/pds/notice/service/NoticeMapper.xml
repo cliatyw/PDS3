@@ -18,6 +18,7 @@
 		#{noticeTitle},
 		#{noticeContent}) 
 	</insert> 
+	
 	<select id="selectNoticeList"  
 			parameterType="java.util.List"  
 			resultType="com.test.pds.notice.service.Notice"> 

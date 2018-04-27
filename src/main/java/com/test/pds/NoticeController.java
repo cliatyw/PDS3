@@ -15,11 +15,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.test.pds.board.service.Board;
 import com.test.pds.board.service.BoardRequest;
 import com.test.pds.board.service.BoardService;
 import com.test.pds.notice.service.Notice;
+import com.test.pds.notice.service.NoticeFile;
 import com.test.pds.notice.service.NoticeRequest;
 import com.test.pds.notice.service.NoticeService;
 
@@ -43,13 +45,21 @@ public class NoticeController {
 		//dao : insert
 		System.out.println(path);
 		noticeService.addNotice(noticeRequest, path);
-		return "redirect:/";
+		return "redirect:/selectNoticeList";
 	}
 	
-	@RequestMapping(value = "/selectNoticeList", method = RequestMethod.POST)
-	public String selectNoticeList(Model model, HttpSession session) {
+	@RequestMapping(value = "/selectNoticeList", method = RequestMethod.GET)
+	public String selectNoticeList(Model model) {
 		List<Notice> list = noticeService.selectNoticeList();
 		model.addAttribute("list", list);
 		return "notice/selectNoticeList";
+	}
+	
+	@RequestMapping(value = "/selectNoticeDetail", method = RequestMethod.GET)
+	public String selectNoticeDetail(Model model
+									,@RequestParam(value="noticeId") int noticeId) {
+		Notice notice = noticeService.selectNoticeDetail(noticeId);
+		model.addAttribute("notice", notice);
+		return "notice/selectNoticeDetail";
 	}
 }

@@ -8,24 +8,32 @@
 <title>getArticleList</title>
 </head>
 <body>
-	<h1>getArticleList</h1>
-	<table>
-		<thead>
-			<tr>
-				<th>noticeleId</th>
-				<th>noticeTitle</th>
-				<th>noticeContent</th>
-			</tr>
-		</thead>
-		<tbody>
-			<c:forEach var="notice" items="${list}">
-				<tr>
-					<td>${notice.noticeId}</td>
-					<td>${notice.noticeTitle}</td>
-					<td>${notice.noticeContent}</td>
-				</tr>
-			</c:forEach>
-		</tbody>
+	<h1>getNoticeList</h1>
+	<TABLE border=0 width='600' cellpadding='0' cellspacing='0'>
+		<TR>
+			<TD><hr size='1' noshade>
+			</TD>
+	 	</TR>
+	</TABLE>   
+	<TABLE border=0 cellspacing=1 cellpadding=2 width='600'>
+		<TR bgcolor='cccccc'>  
+			<TD width='50'><font size=2><center><b>번호</b></center></font></TD>      
+			<TD width='550'><font size=2><center><b>제목</b></center></font></TD>  
+		</TR>   
+		<c:forEach var="notice" items="${list}">
+			<TR bgcolor='ededed'>   
+				<TD align=center><font size=2 color='black'>${notice.noticeId}</font></TD>  
+				<TD align=center><font size=2 color="black"><a href="${pageContext.request.contextPath}/selectNoticeDetail?noticeId=${notice.noticeId}">${notice.noticeTitle}</a></font></TD>
+			</TR>
+		</c:forEach>
 	</table>
+	<TABLE border=0 width='600'>
+	<TR>
+		<TD align=left><td align='left'><a href="${pageContext.request.contextPath}/">[메인]</a></td></TD>
+		<TD align=right><td align='right'><a href="${pageContext.request.contextPath}/insertNotice">[등록]</a></td></TD>
+	</TR>
+</TABLE>         
 </body>
 </html>
+
+
