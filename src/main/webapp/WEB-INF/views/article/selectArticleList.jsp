@@ -10,7 +10,7 @@
 <body>
 	<h1>selectArticleList</h1>
 	<form action="${pageContext.request.contextPath}/selectArticleList" method="get">
-		<select name="pagePerRow" class="form-control">
+		<select name="pagePerRow">
 			<option value="3">3개씩</option>
 			<option value="5">5개씩</option>
 			<option value="10">10개씩</option>
@@ -28,8 +28,7 @@
 			<c:forEach var="article" items="${list}">
 				<tr>
 					<td>${article.articleId}</td>
-					<td><a
-						href="${pageContext.request.contextPath}/selectArticleDetail?articleId=${article.articleId}">${article.articleTitle}</a></td>
+					<td><a href="${pageContext.request.contextPath}/selectArticleDetail?articleId=${article.articleId}">${article.articleTitle}</a></td>
 				</tr>
 			</c:forEach>
 		</tbody>
@@ -40,7 +39,7 @@
 	<c:if test="${currentPage > 1}">
 		<a href="${pageContext.request.contextPath}/selectArticleList?currentPage=${currentPage-1}&pagePerRow=${pagePerRow}">[이전]</a>
 	</c:if>
-	<c:forEach var="a" begin="1" end="${lastPage}">
+	<c:forEach var="a" begin="${blockStart}" end="${blockEnd}">
 		<a href="${pageContext.request.contextPath}/selectArticleList?currentPage=${a}&pagePerRow=${pagePerRow}">${a}</a>
 	</c:forEach>
 	<c:if test="${currentPage < lastPage}">

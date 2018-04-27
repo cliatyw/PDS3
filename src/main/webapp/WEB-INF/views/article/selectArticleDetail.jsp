@@ -5,14 +5,23 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>selectArticleOne</title>
+<title>selectArticleDetail</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+	$(document).ready(function(){
+		/* 파일이 없을때 file table을 삭제한다. */
+		if($('#table').find('td:eq(0)').text() == 0){
+			$('#table').remove();
+		}
+	});
+</script>
 </head>
 <body>
 	<h1>selectArticleList</h1>
 	<div>번호 : ${article.articleId}</div>
 	<div>제목 : ${article.articleTitle}</div>
 	<div>내용 : ${article.articleContent}</div>
-	<table>
+	<table id="table">
 		<thead>
 			<tr>
 				<th>articleFileId</th>

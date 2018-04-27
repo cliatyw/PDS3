@@ -42,6 +42,8 @@ public class ArticleController {
 		Map<String, Object> map = articleService.selectArticleList(currentPage, pagePerRow);
 		model.addAttribute("list", map.get("list"));
 		model.addAttribute("lastPage", map.get("lastPage"));
+		model.addAttribute("blockStart", map.get("blockStart"));
+		model.addAttribute("blockEnd", map.get("blockEnd"));
 		model.addAttribute("currentPage", currentPage);
 		model.addAttribute("pagePerRow", pagePerRow);
 		return "article/selectArticleList";

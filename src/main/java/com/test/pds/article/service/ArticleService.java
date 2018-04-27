@@ -51,10 +51,30 @@ public class ArticleService {
 		}else {
 			lastPage = total/pagePerRow+1;
 		}
+		/*한 블럭에 나올 페이징 수 : blockNum
+		currentPage 와 blockNum 를 이용하여 현재 block을 구한다.
+		공식을 활용하여 한블럭에 시작페이지와 끝페이지를 구한다.
+		마지막페이지가 더 작을 경우를 대비해 if문을 추가한다.*/
+		int blockNum = 5;
+		
+		int block = 0;
+		if(currentPage%blockNum == 0) {
+			block = currentPage/blockNum;
+		}else {
+			block = currentPage/blockNum + 1;
+		}
+		int blockStart = (block - 1)*blockNum + 1;
+		int blockEnd = blockStart + blockNum - 1;
+		
+		if(blockEnd > lastPage) {
+			blockEnd = lastPage;
+		}
 		
 		Map<String, Object> returnMap = new HashMap<String, Object>();
 		returnMap.put("list", list);
 		returnMap.put("lastPage", lastPage);
+		returnMap.put("blockStart", blockStart);
+		returnMap.put("blockEnd", blockEnd);
 		
 		return returnMap;
 	}
