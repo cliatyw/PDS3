@@ -4,50 +4,73 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="com.test.pds.article.service.ArticleMapper">
+	<!-- 1:N를 하기 위해 resultMap에 collection을 활용하여 클래스를 매핑하였다. -->
 	<resultMap type="com.test.pds.article.service.Article"
-		id="resultArticle">
+			   id="resultArticle">
 		<result column="article_id"
-			property="articleId" />
+				property="articleId" />
 		<result column="article_title"
-			property="articleTitle" />
+				property="articleTitle" />
 		<result column="article_content"
-			property="articleContent" />
+				property="articleContent" />
 		<collection property="articleFile"
-			ofType="com.test.pds.article.service.ArticleFile">
+					ofType="com.test.pds.article.service.ArticleFile">
 			<id column="article_file_id"
 				property="articleFileId" />
 			<result column="article_id"
-				property="articleId" />
+					property="articleId" />
 			<result column="article_file_name"
-				property="articleFileName" />
+					property="articleFileName" />
 			<result column="article_file_ext"
-				property="articleFileExt" />
+					property="articleFileExt" />
 			<result column="article_file_type"
-				property="articleFileType" />
+					property="articleFileType" />
 			<result column="article_file_size"
-				property="articleFileSize" />
+					property="articleFileSize" />
 		</collection>
 	</resultMap>
-	<select id="selectArticleList"
-		parameterType="int"
-		resultMap="resultArticle">
-			select 
+	<!-- articleId를 매개변수로 받아 해당하는 article와 article_file을 조인시키는 쿼리문
+	파일이 하나도 없을시에도 id, title, content를 얻기 위해 left조인을 사용하였다. -->
+	<select id="selectArticleDetail"
+			parameterType="int"
+			resultMap="resultArticle">
+			SELECT 
 				article.article_id
 				, article.article_title
 				, article.article_content
+				, article_file.article_file_id
 				, article_file.article_file_name
 				, article_file.article_file_ext
-			from article inner join article_file
-			on article.article_id = article_file.article_id
+				, article_file.article_file_type
+				, article_file.article_file_size
+			FROM article LEFT JOIN article_file
+			ON article.article_id = article_file.article_id
+			WHERE article.article_id = #{articleId}
+    </select>
+    <!-- article전체 갯수를 세 Integer타입으로 리턴받는 쿼리문 -->
+    <select id="totalCountArticle" resultType="Integer">
+		SELECT COUNT(*) FROM article
+	</select>
+	<!-- 맵 타입을 매개변수로 받아 페이징 작업을 위한 limit을 하고 해당하는 list를 article타입으로 리턴받는 쿼리문 -->
+	<select id="selectArticleList"
+			parameterType="java.util.Map"
+			resultType="com.test.pds.article.service.Article">
+			SELECT
+				article_id AS articleId
+				, article_title AS articleTitle
+				, article_content AS articleContent
+			FROM article
+			ORDER BY article_id DESC
+			LIMIT #{beginRow}, #{pagePerRow}
     </select>
     <!-- article을 매개변수로 받아 title, content를 입력한 후 id값을 리턴받는 쿼리문
     selectKey는 호출시 사용된 도메인 객체에 저장된다.
     order="AFTER" : 쿼리 실행한 후 자동증가 값 -->
 	<insert id="insertArticle"
-		parameterType="com.test.pds.article.service.Article">
+			parameterType="com.test.pds.article.service.Article">
 		<selectKey resultType="int"
-			keyProperty="articleId"
-			order="AFTER">
+				   keyProperty="articleId"
+				   order="AFTER">
 			SELECT LAST_INSERT_ID()
 		</selectKey>
 		INSERT INTO article(

@@ -6,7 +6,9 @@
 <mapper namespace="com.test.pds.gallery.service.GalleryMapper">
 	<insert id="insertGallery" 
 			parameterType="com.test.pds.gallery.service.Gallery"> 
-		<selectKey resultType="int" keyProperty="galleryId" order="AFTER">
+		<selectKey resultType="int"
+				   keyProperty="galleryId" 
+				   order="AFTER">
 			SELECT LAST_INSERT_ID()
 		</selectKey>
 		INSERT INTO gallery(
@@ -16,8 +18,6 @@
 		#{galleryTitle},
 		#{galleryContent}) 
 	</insert> 
-	
-
 	<select id="selectGalleryList"  
 			parameterType="java.util.List"  
 			resultType="com.test.pds.gallery.service.Gallery"> 
@@ -28,7 +28,4 @@
 		FROM gallery  
 		ORDER BY gallery_id ASC
 	</select> 
-	
-	
-	
 </mapper>

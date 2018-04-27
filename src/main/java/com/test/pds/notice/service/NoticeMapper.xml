@@ -6,7 +6,9 @@
 <mapper namespace="com.test.pds.notice.service.NoticeMapper">
 	<insert id="insertNotice" 
 			parameterType="com.test.pds.notice.service.Notice"> 
-		<selectKey resultType="int" keyProperty="noticeId" order="AFTER">
+		<selectKey resultType="int" 
+					keyProperty="noticeId" 
+					order="AFTER">
 			SELECT LAST_INSERT_ID()
 		</selectKey>
 		INSERT INTO notice(
@@ -16,8 +18,6 @@
 		#{noticeTitle},
 		#{noticeContent}) 
 	</insert> 
-	
-
 	<select id="selectNoticeList"  
 			parameterType="java.util.List"  
 			resultType="com.test.pds.notice.service.Notice"> 
@@ -28,7 +28,4 @@
 		FROM notice  
 		ORDER BY notice_id ASC
 	</select> 
-	
-	
-	
 </mapper>

@@ -19,5 +19,4 @@
 			,#{galleryFileSize}
 			,#{galleryId})
 	</insert>
-	
 </mapper>
