@@ -27,18 +27,24 @@ public class ArticleService {
 	private ArticleFileDao articleFileDao;
 
 	private static final Logger logger = LoggerFactory.getLogger(ArticleService.class);
-
+	/*articleId를 매개변수로 받아 Dao에서 selectArticleDetail를 호출하여 해당하는 article을 리턴받는다.*/
+	public Article selectArticleDetail(int articleId) {
+		return articleDao.selectArticleDetail(articleId);
+	}
+	/*페이징 작업을 위해 매개변수 currentPage, pagePerRow를 받고, lastPage를 map에 셋팅한다.
+	Dao에서 selectArticleList를 호출하여 전체 articleList를 받아 map에 셋팅한다.*/
 	public Map<String, Object> selectArticleList(int currentPage, int pagePerRow) {
 		Map<String, Integer> map = new HashMap<String, Integer>();
-		
+		/*currentPage, pagePerRow를 이용하여 beginRow를 구하여 map에 beginRow, pagePerRow를 셋팅한다.*/
 		int beginRow = (currentPage-1)*pagePerRow;
 		map.put("beginRow", beginRow);
 		map.put("pagePerRow", pagePerRow);
-		System.out.println("...");
-		List<Article> list = articleDao.selectArticleList(map);
-		System.out.println(".....");
-		int total = articleDao.totalCountArticle();
 		
+		List<Article> list = articleDao.selectArticleList(map);
+		/*전체 article 갯수를 구하기 위해 Dao에서 totalCountArticle 매서드를 호출하여 total에 대입한다.*/
+		int total = articleDao.totalCountArticle();
+		/*total, pagePerRow를 활용하여 lastPage를 구한다.
+		if문 안에 나머지가 있다면 페이지가 한개 더추가 된다.*/
 		int lastPage = 0;
 		if(total%pagePerRow == 0) {
 			lastPage = total/pagePerRow;

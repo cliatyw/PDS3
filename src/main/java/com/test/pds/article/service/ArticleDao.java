@@ -19,11 +19,15 @@ public class ArticleDao {
 	private static final Logger logger = LoggerFactory.getLogger(ArticleDao.class);
 	
 	final String NS = "com.test.pds.article.service.ArticleMapper.";
-	
+	/*articleId를 매개변수로 받아 해당하는 article의 정보를 가져오는 매서드*/
+	public Article selectArticleDetail(int articleId) {
+		return sqlSession.selectOne(NS+"selectArticleDetail", articleId);
+	}
+	/*article 전체 갯수를 세는 매서드*/
 	public int totalCountArticle() {
 		return sqlSession.selectOne(NS+"totalCountArticle");
 	}
-	
+	/*map에 셋팅된 beginRow, pagePerRow를 가지고 article list를 가져와 리턴한다.*/
 	public List<Article> selectArticleList(Map<String, Integer> map) {
 		return sqlSession.selectList(NS+"selectArticleList", map);
 	}

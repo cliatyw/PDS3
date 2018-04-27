@@ -4,6 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="com.test.pds.article.service.ArticleMapper">
+	<!-- 1:N를 하기 위해 resultMap에 collection을 활용하여 클래스를 매핑하였다. -->
 	<resultMap type="com.test.pds.article.service.Article"
 			   id="resultArticle">
 		<result column="article_id"
@@ -28,10 +29,12 @@
 					property="articleFileSize" />
 		</collection>
 	</resultMap>
-	<select id="selectArticleFileList"
+	<!-- articleId를 매개변수로 받아 해당하는 article와 article_file을 조인시키는 쿼리문
+	파일이 하나도 없을시에도 id, title, content를 얻기 위해 left조인을 사용하였다. -->
+	<select id="selectArticleDetail"
 			parameterType="int"
 			resultMap="resultArticle">
-			select 
+			SELECT 
 				article.article_id
 				, article.article_title
 				, article.article_content
@@ -40,20 +43,23 @@
 				, article_file.article_file_ext
 				, article_file.article_file_type
 				, article_file.article_file_size
-			from article inner join article_file
-			on article.article_id = article_file.article_id
+			FROM article LEFT JOIN article_file
+			ON article.article_id = article_file.article_id
+			WHERE article.article_id = #{articleId}
     </select>
+    <!-- article전체 갯수를 세 Integer타입으로 리턴받는 쿼리문 -->
     <select id="totalCountArticle" resultType="Integer">
 		SELECT COUNT(*) FROM article
 	</select>
+	<!-- 맵 타입을 매개변수로 받아 페이징 작업을 위한 limit을 하고 해당하는 list를 article타입으로 리턴받는 쿼리문 -->
 	<select id="selectArticleList"
 			parameterType="java.util.Map"
-			resultMap="com.test.pds.article.service.Article">
-			select
+			resultType="com.test.pds.article.service.Article">
+			SELECT
 				article_id AS articleId
 				, article_title AS articleTitle
 				, article_content AS articleContent
-			from article
+			FROM article
 			ORDER BY article_id DESC
 			LIMIT #{beginRow}, #{pagePerRow}
     </select>
