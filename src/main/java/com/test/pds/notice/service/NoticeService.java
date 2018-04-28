@@ -16,7 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.test.pds.SystemPath;
 import com.test.pds.gallery.service.GalleryService;
-
+ 
 @Service
 /*Transactional service에서 오류가 발생시 전부 취소시킨다.*/
 @Transactional
