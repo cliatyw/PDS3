@@ -86,5 +86,21 @@ public class NoticeService {
 	public Notice selectNoticeDetail(int noticeId) {
 		return noticeFileDao.selectNoticeDetail(noticeId);
 	}
+	
+	public int deleteNoticeFileOne(int noticeFileId) {
+		/*업로드된 파일 삭제하기(아직 안함)db만삭제*/
+		return noticeFileDao.deleteNoticeFileOne(noticeFileId);
+	}
+	
+	public void deleteNotice(int noticeId, int noticeFileList) {
+		int noticeDeleteFile = noticeFileDao.deleteNoticeFile(noticeId);
+		int noticeDelete = noticeDao.deleteNotice(noticeId);
+	}
+	
+	public int deleteNoticeFile(int noticeId) {
+		int row = noticeFileDao.deleteNoticeFile(noticeId);
+		 
+		return row;
+	}
 
 }

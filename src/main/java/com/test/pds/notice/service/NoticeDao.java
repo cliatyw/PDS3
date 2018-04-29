@@ -22,4 +22,7 @@ public class NoticeDao {
 		return sqlSession.selectList(NS+"selectNoticeList"); 
 	} 
 
+	public int deleteNotice(int noticeId) {
+		return sqlSession.delete(NS+"deleteNotice", noticeId);
+	}
 }

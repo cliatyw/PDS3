@@ -22,5 +22,15 @@ public class NoticeFileDao {
 	public Notice selectNoticeDetail(int noticeId){ 
 		return sqlSession.selectOne(NS+"selectNoticeDetail", noticeId); 
 	} 
+	
+	public int deleteNoticeFileOne(int noticeFileId) {
+		int row = sqlSession.delete(NS+"deleteNoticeFileOne", noticeFileId);
+		return row;
+	}
+	
+	public int deleteNoticeFile(int noticeId) {
+		int row = sqlSession.delete(NS+"deleteNoticeFile", noticeId);
+		return row;
+	}
 
 }

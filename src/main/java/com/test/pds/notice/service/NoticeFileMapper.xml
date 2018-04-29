@@ -10,7 +10,8 @@
 		<result column="notice_title" property="noticeTitle"/>
 		<result column="notice_content" property="noticeContent"/>
 			<collection property="noticeFile" ofType="com.test.pds.notice.service.NoticeFile">
-				<id column="notic_file_id" property="noticeFileId"/>
+				<id column="notice_file_id" property="noticeFileId"/>
+				<result column="notice_file_id" property="noticeFileId"/>
 				<result column="notice_file_name" property="noticeFileName"/>
 				<result column="notice_file_ext" property="noticeFileExt"/>
 				<result column="notice_file_type" property="noticeFileType"/>
@@ -49,4 +50,21 @@
 		WHERE n.notice_id = #{noticeId}
 		ORDER BY notice_file_id ASC
 	</select>
+	
+	<delete id="deleteNoticeFile"
+			parameterType="int">
+		DELETE FROM
+			notice_file
+		WHERE
+			notice_id = #{noticeId}
+	</delete>
+	
+	<delete id="deleteNoticeFileOne"
+			parameterType="int">
+		DELETE FROM
+			notice_file
+		WHERE
+			notice_file_id = #{noticeFileId}
+	</delete>
+	
 </mapper>

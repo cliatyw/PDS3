@@ -62,4 +62,27 @@ public class NoticeController {
 		model.addAttribute("notice", notice);
 		return "notice/selectNoticeDetail";
 	}
+	
+	
+	/*notice삭제 (삭제시 그안의 file도 전부 삭제)*/
+	@RequestMapping(value="/deleteNotice", method=RequestMethod.GET) 
+		public String deleteNotice(@RequestParam(value="noticeId") int noticeId) { 
+ 		 
+		/*noticeid값만 가지고 모든 파일을 삭제*/
+			int noticeFileList = noticeService.deleteNoticeFile(noticeId); 
+			noticeService.deleteNotice(noticeId, noticeFileList); 
+			return "redirect:/selectNoticeList"; 
+	} 
+	
+	/*notice의 file하나만 삭제*/
+	@RequestMapping(value="/deleteNoticeFile", method=RequestMethod.GET) 
+		public String deleteNoticeFile(Model model 
+										,@RequestParam(value="noticeId") int noticeId 
+										,@RequestParam(value="noticeFileId") int noticeFileId) { 
+			noticeService.deleteNoticeFileOne(noticeFileId); 
+			
+			Notice notice = noticeService.selectNoticeDetail(noticeId); 
+			model.addAttribute("notice", notice); 
+			return "notice/selectNoticeDetail"; 
+		} 
 }

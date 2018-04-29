@@ -29,4 +29,23 @@
 		FROM notice  
 		ORDER BY notice_id ASC
 	</select> 
+	
+	<delete id="deleteNotice"
+			parameterType="int">
+		DELETE FROM
+			notice
+		WHERE
+			notice_id=#{noticeId}
+	</delete>
+	
+	<update id="updateNotice"
+			parameterType="com.test.pds.notice.service.Notice">
+		UPDATE
+			notice
+		SET
+			notice_title = #{noticeTitle}
+			notice_content = #{noticeContent}
+		WHERE
+			notice_id = #{noticeId}
+	</update>
 </mapper>

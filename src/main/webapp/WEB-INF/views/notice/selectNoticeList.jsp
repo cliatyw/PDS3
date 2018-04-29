@@ -18,12 +18,16 @@
 	<TABLE border=0 cellspacing=1 cellpadding=2 width='600'>
 		<TR bgcolor='cccccc'>  
 			<TD width='50'><font size=2><center><b>번호</b></center></font></TD>      
-			<TD width='550'><font size=2><center><b>제목</b></center></font></TD>  
+			<TD width='450'><font size=2><center><b>제목</b></center></font></TD>  
+			<TD width='50'><font size=2><center><b>수정</b></center></font></TD>  
+			<TD width='50'><font size=2><center><b>삭제</b></center></font></TD>  
 		</TR>   
 		<c:forEach var="notice" items="${list}">
 			<TR bgcolor='ededed'>   
 				<TD align=center><font size=2 color='black'>${notice.noticeId}</font></TD>  
 				<TD align=center><font size=2 color="black"><a href="${pageContext.request.contextPath}/selectNoticeDetail?noticeId=${notice.noticeId}">${notice.noticeTitle}</a></font></TD>
+				<TD align=center><font size=2 color="black"><a href="*">수정</a></font></TD>
+				<TD align=center><font size=2 color="black"><a href="${pageContext.request.contextPath}/deleteNotice?noticeId=${notice.noticeId}">삭제</a></font></TD>
 			</TR>
 		</c:forEach>
 	</table>
