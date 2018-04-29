@@ -6,12 +6,14 @@
 <mapper namespace="com.test.pds.board.service.BoardMapper">
 	<resultMap type="com.test.pds.board.service.Board" 
 				id="resultBoardDetail">
-		<result column="board.board_content " 
+		<result column="board_content" 
 				property="boardContent"/>		
 		<collection property="boardFile" 
 					ofType="com.test.pds.board.service.BoardFile">	
-			<result column="board_file.board_file_name" 
-					property="boardFile"/>
+			<result column="board_file_name" 
+					property="boardFileName"/>
+			<result column="board_file_ext" 
+			property="boardFileExt"/>
 		</collection>			
 	</resultMap>		
 	<insert id="insertBoard"
@@ -41,7 +43,8 @@
 			resultMap="resultBoardDetail">
 		SELECT 
 			board.board_content 
-			, board_file.board_file_name 
+			, board_file.board_file_name
+			, board_file.board_file_ext 
 		FROM board 
 		INNER JOIN board_file
 		ON board.board_id = board_file.board_id

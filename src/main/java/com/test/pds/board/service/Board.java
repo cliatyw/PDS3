@@ -1,13 +1,14 @@
 /*[김도희]*/
 package com.test.pds.board.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Board {
 	private int boardId;
 	private String boardTitle;
 	private String boardContent;
-	/*추후 1:N(List)로 바꿔주기*/
+	/*BoardFile의 값들을 List타입의 boardFile에 넣어줌으로써 1:N(List)*/
 	private List<BoardFile> boardFile;
 	
 	public int getBoardId() {

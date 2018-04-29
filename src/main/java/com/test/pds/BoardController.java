@@ -28,7 +28,10 @@ import com.test.pds.board.service.BoardService;
 public class BoardController {
 	@Autowired
 	private BoardService boardService;
+	private Board board;
 	private static final Logger logger = LoggerFactory.getLogger(BoardController.class);
+
+	
 	
 	/*게시판 등록화면*/
 	@RequestMapping(value = "/insertBoard", method = RequestMethod.GET)
@@ -72,8 +75,8 @@ public class BoardController {
 		logger.debug("=========BoardController.selectBoardDetail 실행==========");
 		logger.debug("boardId : "+boardId);
 		List<Board> list = boardService.selectBoardDetail(boardId);
-		logger.debug("BoardDetail - list : "+list);
-		model.addAttribute("list", list);
+		logger.debug("BoardDetailboard : "+list);
+		model.addAttribute("list",list);
 		return "/board/selectBoardDetail";
 	}
 }

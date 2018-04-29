@@ -9,12 +9,14 @@
 </head>
 <body>
 	<h1>selectBoardDetail</h1>
-	board Content
-	<c:forEach var="board" items="${list}">
-		${board.boardContent}<br>
-	파일
-		${board.boardFile}
-	</c:forEach>
-		
+	board Content	
+	<c:forEach var="board" items="${list}">	
+		${board.boardContent}<br>	
+	<c:forEach var="boardFile" items="${board.boardFile}">		 
+	파일	이름 ${boardFile.boardFileName} 
+	파일확장명 ${boardFile.boardFileExt}<br>
+	<a href="/pds/resources/upload/${boardFile.boardFileName}.${boardFile.boardFileExt}" download target="_blank""> 파일 다운로드</a><br>
+	</c:forEach>	
+	</c:forEach> 	
 </body>
 </html>
