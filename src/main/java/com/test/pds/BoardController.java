@@ -59,7 +59,7 @@ public class BoardController {
 	@RequestMapping(value = "/selectBoardList", method = RequestMethod.GET)
 	public String selectBoardList(Model model) {
 		
-		logger.debug("=========BoardController.selectBoardList 실행==========");
+		logger.debug("=========BoardController.selectBoardList==========");
 		/*list에 Board의 id,title이 담겨있다*/
 		List<Board> list = boardService.selectBoardList();
 		logger.debug("BoardList : "+list);
@@ -72,11 +72,21 @@ public class BoardController {
 	public String selectBoardDetail(Model model,
 									@RequestParam(value="boardId") int boardId) {
 		
-		logger.debug("=========BoardController.selectBoardDetail 실행==========");
+		logger.debug("=========BoardController.selectBoardDetail==========");
 		logger.debug("boardId : "+boardId);
 		List<Board> list = boardService.selectBoardDetail(boardId);
 		logger.debug("BoardDetailboard : "+list);
 		model.addAttribute("list",list);
 		return "/board/selectBoardDetail";
+	}
+	
+	/*boardId를 매개변수로 받아  게시판 삭제*/
+	@RequestMapping(value = "/deleteBoard", method = RequestMethod.GET)
+	public String deleteBoard(Model model,
+							@RequestParam(value="boardId") int boardId) {
+		logger.debug("=============BoardController.deleteBoard==============");
+		logger.debug("boardId : "+boardId);
+		boardService.deleteBoard(boardId);
+		return "redirect:/selectBoardList";
 	}
 }

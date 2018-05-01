@@ -9,8 +9,9 @@
 </head>
 <body>
 	<h1>selectBoardDetail</h1>
-	board Content	
-	<c:forEach var="board" items="${list}">	
+	<c:forEach var="board" items="${list}">
+	<a href="${pageContext.request.contextPath}/deleteBoard?boardId=${board.boardId}">삭제</a><br>
+	board Content					
 		${board.boardContent}<br>	
 	<c:forEach var="boardFile" items="${board.boardFile}">		 
 	파일	이름 ${boardFile.boardFileName} 
