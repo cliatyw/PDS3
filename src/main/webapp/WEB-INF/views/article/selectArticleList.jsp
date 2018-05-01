@@ -22,6 +22,7 @@
 			<tr>
 				<th>articleId</th>
 				<th>articleTitle</th>
+				<th>삭제</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -29,6 +30,7 @@
 				<tr>
 					<td>${article.articleId}</td>
 					<td><a href="${pageContext.request.contextPath}/selectArticleDetail?articleId=${article.articleId}">${article.articleTitle}</a></td>
+					<td><a href="${pageContext.request.contextPath}/deleteArticle?articleId=${article.articleId}">삭제</a></td>
 				</tr>
 			</c:forEach>
 		</tbody>

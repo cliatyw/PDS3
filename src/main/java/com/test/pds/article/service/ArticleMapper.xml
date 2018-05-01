@@ -29,6 +29,13 @@
 					property="articleFileSize" />
 		</collection>
 	</resultMap>
+	<!-- 기본키인 articleId를 매개변수로 받아 article을 삭제하는 쿼리문 -->
+	<delete id="deleteArticle"
+			parameterType="int">
+		DELETE FROM
+			article
+		WHERE article_id = #{articleId}
+	</delete>
 	<!-- articleId를 매개변수로 받아 해당하는 article와 article_file을 조인시키는 쿼리문
 	파일이 하나도 없을시에도 id, title, content를 얻기 위해 left조인을 사용하였다. -->
 	<select id="selectArticleDetail"

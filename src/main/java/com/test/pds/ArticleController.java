@@ -23,6 +23,15 @@ public class ArticleController {
 	private ArticleService articleService;
 	
 	private static final Logger logger = LoggerFactory.getLogger(ArticleController.class);
+	
+	/*articleId를 매개변수로 받아
+	service에서 deleteArticle 매서드를 불러와 해당하는 article과 articleFile목록을 삭제하고
+	selectArticleList로 리다이렉트 한다.*/
+	@RequestMapping(value = "/deleteArticle", method = RequestMethod.GET)
+	public String deleteArticle(@RequestParam(value="articleId") int articleId) {
+		articleService.deleteArticle(articleId);
+		return "redirect:/selectArticleList";
+	}
 	/*id를 매개변수로 받아 그 id에 해당하는 file의 정보를 가져오기 위하여
 	service에서 selectArticleDetail매서드를 불러오고 model에 셋팅한다.
 	그리고 selectArticleDetail.jsp로 포워드시킨다.*/

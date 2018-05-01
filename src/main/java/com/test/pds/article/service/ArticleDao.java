@@ -19,6 +19,11 @@ public class ArticleDao {
 	private static final Logger logger = LoggerFactory.getLogger(ArticleDao.class);
 	
 	final String NS = "com.test.pds.article.service.ArticleMapper.";
+	/*articleId를 매개변수로 받아 해당하는 article의 데이터를 삭제하고 갯수를 리턴받는 매서드*/
+	public int deleteArticle(int articleId) {
+		int row = sqlSession.delete(NS+"deleteArticle", articleId);
+		return row;
+	}
 	/*articleId를 매개변수로 받아 해당하는 article의 정보를 가져오는 매서드*/
 	public Article selectArticleDetail(int articleId) {
 		return sqlSession.selectOne(NS+"selectArticleDetail", articleId);

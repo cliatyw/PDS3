@@ -27,8 +27,26 @@ public class ArticleService {
 	private ArticleFileDao articleFileDao;
 
 	private static final Logger logger = LoggerFactory.getLogger(ArticleService.class);
+	
+	/*articleId를 매개변수로 받아 articleFile 목록을 가져와 파일을 삭제하고
+	article과 해당하는 articleFile을 db에서 삭제한다.*/
+	public void deleteArticle(int articleId) {
+		/*articleId에 해당하는 articleFile목록을 가져오기 위해 Dao에서 selectArticleDetail 매서드를 호출하여 article에 대입하였다.*/
+		Article article = articleDao.selectArticleDetail(articleId);
+		/*articleFile의 file list를 얻어 list 수만큼 이름과 확장자를 가져와 파일을 삭제한다.*/
+		for(ArticleFile articleFile : article.getArticleFile()) {
+			String fileName = articleFile.getArticleFileName();
+			String fileExt = articleFile.getArticleFileExt();
+			File file = new File(SystemPath.UPLOAD_PATH + fileName + "." + fileExt);
+			file.delete();
+		}
+		/*db에서 article과 articleFile을 삭제한다.*/
+		articleFileDao.deleteArticleFile(articleId);
+		articleDao.deleteArticle(articleId);
+	}
 	/*articleId를 매개변수로 받아 Dao에서 selectArticleDetail를 호출하여 해당하는 article을 리턴받는다.*/
 	public Article selectArticleDetail(int articleId) {
+		logger.debug("%d", 10);
 		return articleDao.selectArticleDetail(articleId);
 	}
 	/*페이징 작업을 위해 매개변수 currentPage, pagePerRow를 받고, lastPage를 map에 셋팅한다.
@@ -81,7 +99,7 @@ public class ArticleService {
 	/*articleRequest를 매개변수로 받아 article에 셋팅하고, multipartFile을 얻어 대입하여 속성들을 얻은 후 Dao를 호출한다.*/
 	public void insertArticle(ArticleRequest articleRequest) {
 		/*article title, content 셋팅*/
-		logger.debug("ArticleService.insertArticle.articleRequest : "+articleRequest.toString());
+		logger.debug("ArticleService.insertArticle.articleRequest : %s", articleRequest.toString());
 		Article article = new Article();
 		article.setArticleTitle(articleRequest.getArticleTitle());
 		article.setArticleContent(articleRequest.getArticleContent());
