@@ -91,7 +91,6 @@ public class BoardController {
 		logger.debug("=============BoardController.deleteBoard==============");
 		logger.debug("boardId : "+boardId);
 		boardService.deleteBoard(boardId);
-		boardService.deleteBoardFile(boardId);
 		/*UPLOAD_PATH에 저장된 경로에서 파일삭제*/
 		String DeleteFilePath = SystemPath.UPLOAD_PATH;
 		/*수정해야할 부분 -> 파일이름과 확장자 가져오기*/

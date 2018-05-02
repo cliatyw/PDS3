@@ -36,8 +36,8 @@
 	<select id="selectBoardList"
 			resultType="com.test.pds.board.service.Board">
 		SELECT 
-			board.board_id AS boardId
-			, board.board_title AS boardTitle			 
+			board_id AS boardId
+			, board_title AS boardTitle			 
 		FROM board
 	</select>
 	<select id="selectBoardDetail" 

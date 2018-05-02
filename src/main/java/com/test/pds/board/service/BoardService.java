@@ -95,18 +95,19 @@ public class BoardService {
 		return list;
 	}
 	
-	/*boardId를 매개변수로 받아  Board(boardId,boardTitle,boardContent)삭제*/
-	public int deleteBoard(int boardId) {
+	  /*boardId를매개변수로 받아  Board(boardId,boardTitle,boardContent)
+	  BoardFile(fileId,fileName,boardId,fileExt,fileType,fileSize)삭제*/ 
+	public void deleteBoard(int boardId) {
 		logger.debug("=============== BoardService.deleteBoard ==============");
-		int row = boardDao.deleteBoard(boardId);
-		return row;
-	}
-	
-	/*boardId를 매개변수로 받아 BoardFile(fileId,fileName,boardId,fileExt,fileType,fileSize) 삭제*/
-	public int deleteBoardFile(int boardId) {
-		logger.debug("================ BoardService.deleteBoardFile ===================");
 		logger.debug("boardId : "+boardId);
-		int row = boardFileDao.deleteBoardFile(boardId);
-		return row;
-	}
-}
+		List<Board> list = boardDao.selectBoardDetail(boardId);
+		logger.debug("BoardList : ............"+list);
+		/*UPLOAD_PATH에 저장된 경로에서 파일삭제를 하기위해 파일이름과 확장자를 가져옴*/
+		/*Board 삭제*/
+		boardDao.deleteBoard(boardId);
+		/*BoardFile 삭제*/ 
+		boardFileDao.deleteBoardFile(boardId);
+		
+	}		
+}		
+

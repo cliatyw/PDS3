@@ -31,7 +31,7 @@ public class BoardDao {
 		return sqlSession.selectList(NS+"selectBoardList");
 	}
 	
-	/*boardId를 매개변수로 받아 게시판 상세보기(Board의 content와 BoardFile의 boardFileName) 검색*/
+	/*boardId를 매개변수로 받아 게시판 상세보기(Board의 content와 BoardFile의 boardFileName,boardFileExt) 검색*/
 	public List<Board> selectBoardDetail(int boardId){
 		logger.debug("==========BoardDao.selectBoardDetail===========");	
 		List<Board> list = sqlSession.selectList(NS+"selectBoardDetail", boardId);
