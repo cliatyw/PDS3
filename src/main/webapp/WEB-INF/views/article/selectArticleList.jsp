@@ -50,5 +50,7 @@
 	<c:if test="${currentPage < lastPage}">
 		<a href="${pageContext.request.contextPath}/selectArticleList?currentPage=${lastPage}&pagePerRow=${pagePerRow}">[끝으로]</a>
 	</c:if>
+	<a href="${pageContext.request.contextPath}/">홈으로</a>
+	<a href="${pageContext.request.contextPath}/insertArticle">등록</a>
 </body>
 </html>
