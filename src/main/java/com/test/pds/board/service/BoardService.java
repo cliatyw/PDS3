@@ -30,7 +30,7 @@ public class BoardService {
 	
 	/*Board,BoardFile 입력*/
 	public void insertBoard(BoardRequest boardRequest) {
-		logger.debug("====BoardService.insertBoard 실행====");
+		logger.debug("============BoardService.insertBoard==========");
 		
 		Board board = new Board();
 		logger.debug("BoardTitle : "+boardRequest.getBoardTitle());
@@ -83,15 +83,22 @@ public class BoardService {
 	
 	/*BoardList 검색 (Board의 Id,title)*/
 	public List<Board> selectBoardList() {
-		logger.debug("===========BoardService.selectBoardList 실행============");
+		logger.debug("=============BoardService.selectBoardList===============");
 		return boardDao.selectBoardList();
 	}
 	
 	/*boardId를 매개변수로 받아 게시판 상세보기(Board의 content와 BoardFile의 boardFileName) 검색*/
 	public List<Board> selectBoardDetail(int boardId){
-		logger.debug("===========BoardService.selectBoardDetail 실행============");
+		logger.debug("===========BoardService.selectBoardDetail============");
 		List<Board> list = boardDao.selectBoardDetail(boardId);
 		logger.debug("BoardDetailboard : "+list);
 		return list;
+	}
+	
+	/*boardId를 매개변수로 받아 board와 board_file 삭제*/
+	public int deleteBoard(int boardId) {
+		logger.debug("===============BoardService.deleteBoard==============");
+		int row = boardDao.deleteBoard(boardId);
+		return row;
 	}
 }

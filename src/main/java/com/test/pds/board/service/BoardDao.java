@@ -27,15 +27,22 @@ public class BoardDao {
 	
 	/*BoardList 검색(Board의 Id,title)*/
 	public List<Board> selectBoardList() {
-		logger.debug("=====BoardDao.selectBoardList 실행=====");
+		logger.debug("==========BoardDao.selectBoardList===========");
 		return sqlSession.selectList(NS+"selectBoardList");
 	}
 	
 	/*boardId를 매개변수로 받아 게시판 상세보기(Board의 content와 BoardFile의 boardFileName) 검색*/
 	public List<Board> selectBoardDetail(int boardId){
-		logger.debug("=======BoardDao.selectBoardDetail 실행========");	
+		logger.debug("==========BoardDao.selectBoardDetail===========");	
 		List<Board> list = sqlSession.selectList(NS+"selectBoardDetail", boardId);
 		logger.debug("BoardDetail - list : "+list);
 		return list;
+	}
+	
+	/*boardId를 매개변수로 받아 board와 board_file 삭제*/
+	public int deleteBoard(int boardId) {
+		logger.debug("============BoardDao.deleteBoard==============");
+		int row = sqlSession.delete(NS+"deleteBoard", boardId);
+		return row;
 	}
 }

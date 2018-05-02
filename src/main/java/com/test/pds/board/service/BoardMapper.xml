@@ -6,6 +6,8 @@
 <mapper namespace="com.test.pds.board.service.BoardMapper">
 	<resultMap type="com.test.pds.board.service.Board" 
 				id="resultBoardDetail">
+		<result column="board_id" 
+				property="boardId"/>		
 		<result column="board_content" 
 				property="boardContent"/>		
 		<collection property="boardFile" 
@@ -42,12 +44,21 @@
 			parameterType="Integer"
 			resultMap="resultBoardDetail">
 		SELECT 
-			board.board_content 
+			board.board_id
+			, board.board_content 
 			, board_file.board_file_name
 			, board_file.board_file_ext 
 		FROM board 
 		INNER JOIN board_file
 		ON board.board_id = board_file.board_id
 		WHERE board.board_id = #{boardId}
-	</select>					
+	</select>
+	<delete id="deleteBoard"
+			parameterType="Integer">
+		DELETE b, f 
+		FROM board AS b 
+		JOIN board_file AS f
+		ON b.board_id = f.board_id
+		WHERE b.board_id = #{boardId}
+	</delete> 					
 </mapper>
