@@ -12,7 +12,7 @@
 	<table>
 		<thead>
 			<tr>
-				<th>galleryId</th>
+				<th>galleryID</th>
 				<th>galleryTitle</th>
 				<th>galleryContent</th>
 			</tr>
