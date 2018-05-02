@@ -1,6 +1,10 @@
 
 # Created by https://www.gitignore.io/api/java,maven,eclipse
-
+*.MF
+MANIFEST
+/MANIFEST.MF
+**/MANIFEST.MF
+**/MANIFEST.*
 ### Eclipse ###
 
 .metadata
