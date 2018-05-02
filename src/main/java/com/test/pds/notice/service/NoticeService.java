@@ -15,6 +15,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.test.pds.SystemPath;
+import com.test.pds.article.service.Article;
+import com.test.pds.article.service.ArticleFile;
 import com.test.pds.gallery.service.GalleryService;
  
 @Service
@@ -87,18 +89,22 @@ public class NoticeService {
 		return noticeFileDao.selectNoticeDetail(noticeId);
 	}
 	
-	public int deleteNoticeFileOne(int noticeFileId) {
-		/*업로드된 파일 삭제하기(아직 안함)db만삭제*/
-		return noticeFileDao.deleteNoticeFileOne(noticeFileId);
+
+	public void deleteNotice(int noticeId) {
+		Notice notice = noticeFileDao.selectNoticeDetail(noticeId);
+		for(NoticeFile noticeFile : notice.getNoticeFile()) {
+			File file = new File(SystemPath.UPLOAD_PATH + noticeFile.getNoticeFileName() + "." + noticeFile.getNoticeFileExt());
+			file.delete();
+		}
+		noticeFileDao.deleteNoticeFile(noticeId);
+		noticeDao.deleteNotice(noticeId);
 	}
 	
-	public void deleteNotice(int noticeId, int noticeFileList) {
-		int noticeDeleteFile = noticeFileDao.deleteNoticeFile(noticeId);
-		int noticeDelete = noticeDao.deleteNotice(noticeId);
-	}
-	
-	public int deleteNoticeFile(int noticeId) {
-		int row = noticeFileDao.deleteNoticeFile(noticeId);
+	public int deleteNoticeFile(int noticeFileId) {
+		NoticeFile noticeFile = noticeFileDao.selectNoticeFile(noticeFileId);
+		File file = new File(SystemPath.UPLOAD_PATH + noticeFile.getNoticeFileName() + "." + noticeFile.getNoticeFileExt());
+		file.delete();
+		int row = noticeFileDao.deleteNoticeFileOne(noticeFileId);
 		 
 		return row;
 	}

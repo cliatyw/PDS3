@@ -67,4 +67,16 @@
 			notice_file_id = #{noticeFileId}
 	</delete>
 	
+	<select id="selectNoticeFile"  
+		parameterType="int"  
+		resultType="com.test.pds.notice.service.NoticeFile"> 
+	SELECT 
+		notice_file_name AS noticeFileName
+		,notice_file_id AS noticeFileId
+		,notice_file_ext AS noticeFileExt
+	FROM notice_file
+	WHERE notice_file_id = #{noticeFileId}
+	</select>
+	
+	
 </mapper>

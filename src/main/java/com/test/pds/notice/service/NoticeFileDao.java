@@ -33,4 +33,8 @@ public class NoticeFileDao {
 		return row;
 	}
 
+	public NoticeFile selectNoticeFile(int noticeFileId) {
+		return sqlSession.selectOne(NS+"selectNoticeFile", noticeFileId); 
+	}
+
 }
