@@ -1,6 +1,7 @@
 /*[김도희]*/
 package com.test.pds;
 
+import java.io.File;
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.List;
@@ -13,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -25,6 +27,7 @@ import com.test.pds.board.service.BoardService;
 
 
 @Controller
+@Transactional
 public class BoardController {
 	@Autowired
 	private BoardService boardService;
@@ -80,13 +83,22 @@ public class BoardController {
 		return "/board/selectBoardDetail";
 	}
 	
-	/*boardId를 매개변수로 받아  게시판 삭제*/
+	 /*boardId를 매개변수로 받아  Board(boardId,boardTitle,boardContent),
+	 BoardFile(fileId,fileName,boardId,fileExt,fileType,fileSize)*/
 	@RequestMapping(value = "/deleteBoard", method = RequestMethod.GET)
 	public String deleteBoard(Model model,
 							@RequestParam(value="boardId") int boardId) {
 		logger.debug("=============BoardController.deleteBoard==============");
 		logger.debug("boardId : "+boardId);
 		boardService.deleteBoard(boardId);
+		boardService.deleteBoardFile(boardId);
+		/*UPLOAD_PATH에 저장된 경로에서 파일삭제*/
+		String DeleteFilePath = SystemPath.UPLOAD_PATH;
+		/*수정해야할 부분 -> 파일이름과 확장자 가져오기*/
+		File file = new File(DeleteFilePath+"c24ea7b094464a0986403184e96e5db0.jpg");
+		if(file.exists()) {
+			file.delete();
+		}
 		return "redirect:/selectBoardList";
-	}
+	}	
 }

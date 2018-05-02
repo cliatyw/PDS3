@@ -39,10 +39,13 @@ public class BoardDao {
 		return list;
 	}
 	
-	/*boardId를 매개변수로 받아 board와 board_file 삭제*/
+	/*boardId를 매개변수로 받아  Board(boardId,boardTitle,boardContent)삭제*/
 	public int deleteBoard(int boardId) {
 		logger.debug("============BoardDao.deleteBoard==============");
+		/*외래키 값을 0으로 설정*/
+		sqlSession.update(NS+"foreignKey");
 		int row = sqlSession.delete(NS+"deleteBoard", boardId);
 		return row;
 	}
+	
 }

@@ -18,9 +18,19 @@ public class BoardFileDao {
 	
 	/*BoardFile 입력*/
 	public int insertBoardFile(BoardFile boardFile) {
-		logger.debug("====BoardFileDao.insertBoardFile 실행====");
+		logger.debug("=========== BoardFileDao.insertBoardFile ===============");
 		logger.debug("boardFile : "+boardFile);
 		int row = sqlSession.insert(NS+"insertBoardFile", boardFile);	
+		return row;
+	}
+	
+	/*boardId를 매개변수로 받아 BoardFile(fileId,fileName,boardId,fileExt,fileType,fileSize) 삭제*/
+	public int deleteBoardFile(int boardId) {
+		logger.debug("=============== BoardFileDao.deleteBoardFile ================");
+		logger.debug("boardId : "+boardId);
+		/*외래키 값을 0으로 설정*/
+		sqlSession.update(NS+"foreignKey");
+		int row = sqlSession.delete(NS+"deleteBoardFile", boardId);
 		return row;
 	}
 }

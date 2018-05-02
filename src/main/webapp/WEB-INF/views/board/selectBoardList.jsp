@@ -9,6 +9,7 @@
 </head>
 <body>
 	<h1>selectBoardList</h1>
+	<a href="${pageContext.request.contextPath}/insertBoard">등록</a>
 	<table border="1">
 		<thead>
 			<th>아이디</th>

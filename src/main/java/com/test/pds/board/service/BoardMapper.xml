@@ -53,12 +53,12 @@
 		ON board.board_id = board_file.board_id
 		WHERE board.board_id = #{boardId}
 	</select>
+	<update id="foreignKey">
+		SET foreign_key_checks = 0
+	</update>
 	<delete id="deleteBoard"
 			parameterType="Integer">
-		DELETE b, f 
-		FROM board AS b 
-		JOIN board_file AS f
-		ON b.board_id = f.board_id
-		WHERE b.board_id = #{boardId}
+		DELETE FROM board 
+		WHERE board_id = #{boardId}
 	</delete> 					
 </mapper>

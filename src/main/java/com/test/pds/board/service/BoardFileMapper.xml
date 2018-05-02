@@ -18,7 +18,14 @@
 			, #{boardFileExt}
 			, #{boardFileType}
 			, #{boardFileSize}
-		)	
-			
-	</insert>			
+		)				
+	</insert>
+	<update id="foreignKey">
+		SET foreign_key_checks = 0
+	</update>
+	<delete id="deleteBoardFile"
+			parameterType="Integer">
+		DELETE FROM board_file 
+		WHERE board_id = #{boardId}
+	</delete>					
 </mapper>
