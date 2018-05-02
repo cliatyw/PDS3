@@ -3,9 +3,9 @@ package com.test.pds.board.service;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 import org.slf4j.Logger;
@@ -26,6 +26,7 @@ public class BoardService {
 	private BoardDao boardDao;
 	@Autowired
 	private BoardFileDao boardFileDao;
+	
 	private static final Logger logger = LoggerFactory.getLogger(BoardController.class);
 	
 	/*Board,BoardFile 입력*/
@@ -98,16 +99,28 @@ public class BoardService {
 	  /*boardId를매개변수로 받아  Board(boardId,boardTitle,boardContent)
 	  BoardFile(fileId,fileName,boardId,fileExt,fileType,fileSize)삭제*/ 
 	public void deleteBoard(int boardId) {
-		logger.debug("=============== BoardService.deleteBoard ==============");
-		logger.debug("boardId : "+boardId);
+	
 		List<Board> list = boardDao.selectBoardDetail(boardId);
-		logger.debug("BoardList : ............"+list);
-		/*UPLOAD_PATH에 저장된 경로에서 파일삭제를 하기위해 파일이름과 확장자를 가져옴*/
-		/*Board 삭제*/
-		boardDao.deleteBoard(boardId);
-		/*BoardFile 삭제*/ 
-		boardFileDao.deleteBoardFile(boardId);
-		
+		logger.info("BoardService.deleteBoard >>>> list : "+list);
+		/*파일이 저장된 경로*/
+		String DeleteFilePath = SystemPath.UPLOAD_PATH;
+		/*UPLOAD_PATH에 저장된 경로에서 파일삭제(파일이름, 확장자 이용)*/
+		for (Board board : list) {
+			logger.debug("BoardService.deleteBoard >>>> boardFile :  "+board.getBoardFile());
+			for(BoardFile file : board.getBoardFile()) {
+				logger.debug("BoardService.deleteBoard >>>> boardName : "+file.getBoardFileName());
+				logger.debug("BoardService.deleteBoard >>>> boardExt : "+file.getBoardFileExt());
+				/*파일 이름*/
+				String fileName = file.getBoardFileName();
+				/*파일 확장자*/
+				String fileExt =file.getBoardFileExt();
+				/*파일 삭제*/
+				File f = new File(DeleteFilePath+fileName+"."+fileExt);
+				if(f.exists()) {
+					f.delete();
+				}			
+			}
+		}
 	}		
 }		
 

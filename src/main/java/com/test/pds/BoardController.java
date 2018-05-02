@@ -4,6 +4,7 @@ package com.test.pds;
 import java.io.File;
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -84,20 +85,13 @@ public class BoardController {
 	}
 	
 	 /*boardId를 매개변수로 받아  Board(boardId,boardTitle,boardContent),
-	 BoardFile(fileId,fileName,boardId,fileExt,fileType,fileSize)*/
+	 BoardFile(fileId,fileName,boardId,fileExt,fileType,fileSize) 삭제*/
 	@RequestMapping(value = "/deleteBoard", method = RequestMethod.GET)
 	public String deleteBoard(Model model,
 							@RequestParam(value="boardId") int boardId) {
 		logger.debug("=============BoardController.deleteBoard==============");
 		logger.debug("boardId : "+boardId);
 		boardService.deleteBoard(boardId);
-		/*UPLOAD_PATH에 저장된 경로에서 파일삭제*/
-		String DeleteFilePath = SystemPath.UPLOAD_PATH;
-		/*수정해야할 부분 -> 파일이름과 확장자 가져오기*/
-		File file = new File(DeleteFilePath+"c24ea7b094464a0986403184e96e5db0.jpg");
-		if(file.exists()) {
-			file.delete();
-		}
 		return "redirect:/selectBoardList";
 	}	
 }
