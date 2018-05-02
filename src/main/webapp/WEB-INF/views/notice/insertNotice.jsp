@@ -12,7 +12,7 @@ $(document).ready(function(){
 		if($('.multipartFile').length < 5) {
 			$('#upload').append('<div><input class="multipartFile" type="file" id="multipartFile" name="multipartFile" multiple="multiple"/;></div>')
 		} else {
-			alert('5개 이상 지정안됨');
+			alert('5개 이상 지정안됨'); 
 		}
 	});
 	//remove버튼 클릭시 마지막 <input type="file"> 삭제
