@@ -17,23 +17,23 @@
 		<tbody>
 			<tr>
 				<td>김기성</td>
-				<td><a href="${pageContext.request.contextPath}/insertArticle">Article</a></td>
+				<td><a href="${pageContext.request.contextPath}/selectArticleList">Article</a></td>
 			</tr>
 			<tr>
 				<td>김도희</td>
-				<td><a href="${pageContext.request.contextPath}/insertResume">Resume</a></td>
+				<td><a href="${pageContext.request.contextPath}/selectResumeList">Resume</a></td>
 			</tr>
 			<tr>
 				<td>김도희</td>
-				<td><a href="${pageContext.request.contextPath}/insertBoard">Board</a></td>
+				<td><a href="${pageContext.request.contextPath}/selectBoardList">Board</a></td>
 			</tr>
 			<tr>
 				<td>최상욱</td>
-				<td><a href="${pageContext.request.contextPath}/insertGallery">Gallery</a></td>
+				<td><a href="${pageContext.request.contextPath}/selectGalleryList">Gallery</a></td>
 			</tr>
 			<tr>
 				<td>최상욱</td>
-				<td><a href="${pageContext.request.contextPath}/insertNotice">Notice</a></td>
+				<td><a href="${pageContext.request.contextPath}/selectNoticeList">Notice</a></td>
 			</tr>
 		</tbody>
 	</table>
