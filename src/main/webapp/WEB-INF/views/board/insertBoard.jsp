@@ -24,7 +24,7 @@
 		<div>boardFile :
 		<div><p></p></div>
 		<div><input type="button" id="btn" value="파일추가" class="btn btn-default btn-lg active"></div>
-		<div><input type="submit" value="확인" class="btn btn-primary btn-lg btn-block" ></div>
+		<div><center><input type="submit" value="확인" class="btn btn-primary btn-lg" ></center></div>
 		</div>
 	</form>
 </body>

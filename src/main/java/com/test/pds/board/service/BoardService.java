@@ -121,6 +121,8 @@ public class BoardService {
 				}			
 			}
 		}
+		boardDao.deleteBoard(boardId);
+		boardFileDao.deleteBoardFile(boardId);
 	}		
 }		
 
