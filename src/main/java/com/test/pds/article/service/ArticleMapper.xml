@@ -29,9 +29,18 @@
 					property="articleFileSize" />
 		</collection>
 	</resultMap>
+	<!-- article을 매개변수로 받아 id에 해당하는 article을 수정하는 쿼리문 -->
+	<update id="updateArticle"
+			parameterType="com.test.pds.article.service.Article">
+		UPDATE article
+		SET
+			article_title = #{articleTitle}
+			, article_content = #{articleContent}
+		WHERE article_id = #{articleId}
+	</update>
 	<!-- 기본키인 articleId를 매개변수로 받아 article을 삭제하는 쿼리문 -->
 	<delete id="deleteArticle"
-			parameterType="int">
+			parameterType="Integer">
 		DELETE FROM
 			article
 		WHERE article_id = #{articleId}
@@ -39,20 +48,20 @@
 	<!-- articleId를 매개변수로 받아 해당하는 article와 article_file을 조인시키는 쿼리문
 	파일이 하나도 없을시에도 id, title, content를 얻기 위해 left조인을 사용하였다. -->
 	<select id="selectArticleDetail"
-			parameterType="int"
+			parameterType="Integer"
 			resultMap="resultArticle">
-			SELECT 
-				article.article_id
-				, article.article_title
-				, article.article_content
-				, article_file.article_file_id
-				, article_file.article_file_name
-				, article_file.article_file_ext
-				, article_file.article_file_type
-				, article_file.article_file_size
-			FROM article LEFT JOIN article_file
-			ON article.article_id = article_file.article_id
-			WHERE article.article_id = #{articleId}
+		SELECT 
+			article.article_id
+			, article.article_title
+			, article.article_content
+			, article_file.article_file_id
+			, article_file.article_file_name
+			, article_file.article_file_ext
+			, article_file.article_file_type
+			, article_file.article_file_size
+		FROM article LEFT JOIN article_file
+		ON article.article_id = article_file.article_id
+		WHERE article.article_id = #{articleId}
     </select>
     <!-- article전체 갯수를 세 Integer타입으로 리턴받는 쿼리문 -->
     <select id="totalCountArticle" resultType="Integer">
@@ -62,20 +71,20 @@
 	<select id="selectArticleList"
 			parameterType="java.util.Map"
 			resultType="com.test.pds.article.service.Article">
-			SELECT
-				article_id AS articleId
-				, article_title AS articleTitle
-				, article_content AS articleContent
-			FROM article
-			ORDER BY article_id DESC
-			LIMIT #{beginRow}, #{pagePerRow}
+		SELECT
+			article_id AS articleId
+			, article_title AS articleTitle
+			, article_content AS articleContent
+		FROM article
+		ORDER BY article_id DESC
+		LIMIT #{beginRow}, #{pagePerRow}
     </select>
     <!-- article을 매개변수로 받아 title, content를 입력한 후 id값을 리턴받는 쿼리문
     selectKey는 호출시 사용된 도메인 객체에 저장된다.
     order="AFTER" : 쿼리 실행한 후 자동증가 값 -->
 	<insert id="insertArticle"
 			parameterType="com.test.pds.article.service.Article">
-		<selectKey resultType="int"
+		<selectKey resultType="Integer"
 				   keyProperty="articleId"
 				   order="AFTER">
 			SELECT LAST_INSERT_ID()

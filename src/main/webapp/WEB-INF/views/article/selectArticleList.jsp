@@ -6,6 +6,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>selectArticleList</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
 </head>
 <body>
 	<h1>selectArticleList</h1>
@@ -15,9 +16,9 @@
 			<option value="5">5개씩</option>
 			<option value="10">10개씩</option>
 		</select>
-		<button type="submit">보기</button>
+		<button type="submit" class="btn btn-secondary btn-sm">보기</button>
 	</form>
-	<table>
+	<table class="table table-striped">
 		<thead>
 			<tr>
 				<th>articleId</th>
@@ -50,7 +51,8 @@
 	<c:if test="${currentPage < lastPage}">
 		<a href="${pageContext.request.contextPath}/selectArticleList?currentPage=${lastPage}&pagePerRow=${pagePerRow}">[끝으로]</a>
 	</c:if>
-	<a href="${pageContext.request.contextPath}/">홈으로</a>
-	<a href="${pageContext.request.contextPath}/insertArticle">등록</a>
+	<br>
+		<button type="button" class="btn btn-outline-info" onclick="location.href='${pageContext.request.contextPath}/'">홈으로</button>
+		<button type="button" class="btn btn-outline-secondary" onclick="location.href='${pageContext.request.contextPath}/insertArticle'">등록</button>
 </body>
 </html>

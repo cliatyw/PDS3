@@ -6,6 +6,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>selectArticleDetail</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script>
 	$(document).ready(function(){
@@ -18,10 +19,21 @@
 </head>
 <body>
 	<h1>selectArticleList</h1>
-	<div>번호 : ${article.articleId}</div>
-	<div>제목 : ${article.articleTitle}</div>
-	<div>내용 : ${article.articleContent}</div>
-	<table id="table">
+	<table class="table">
+		<tr>
+			<td>번호</td>
+			<td>${article.articleId}</td>
+		</tr>
+		<tr>
+			<td>제목</td>
+			<td>${article.articleTitle}</td>
+		</tr>
+		<tr>
+			<td>내용</td>
+			<td>${article.articleContent}</td>
+		</tr>
+	</table>
+	<table id="table" class="table">
 		<thead>
 			<tr>
 				<th>articleFileId</th>
@@ -45,5 +57,8 @@
 			</c:forEach>
 		</tbody>
 	</table>
+	<button type="button" class="btn btn-defalt" onclick="location.href='${pageContext.request.contextPath}/updateArticle?articleId=${article.articleId}'">수정</button>
+	<button type="button" class="btn btn-defalt" onclick="location.href='${pageContext.request.contextPath}/deleteArticle?articleId=${article.articleId}'">삭제</button>
+	<button type="button" class="btn btn-defalt" onclick="location.href='${pageContext.request.contextPath}/selectArticleList'">리스트로</button>
 </body>
 </html>

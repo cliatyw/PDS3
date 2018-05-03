@@ -17,6 +17,14 @@ public class ArticleFileDao {
 	
 	final String NS = "com.test.pds.article.service.ArticleFileMapper.";
 	
+	public ArticleFile selectArticleFileOne(int articleFileId) {
+		return sqlSession.selectOne(NS+"selectArticleFileOne", articleFileId);
+	}
+	/*수정을 위해 articleFileId을 매개변수로 받아 해당하는 파일 한개만 삭제하고 갯수를 row로 리턴받는 매서드*/
+	public int deleteArticleFileOne(int articleFileId) {
+		int row = sqlSession.delete(NS+"deleteArticleFileOne", articleFileId);
+		return row;
+	}
 	/*articleId를 매개변수로 받아 해당하는 articleFile을 삭제하고 갯수를 리턴받는 매서드*/
 	public int deleteArticleFile(int articleId) {
 		int row = sqlSession.delete(NS+"deleteArticleFile", articleId);
