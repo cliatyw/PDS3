@@ -8,10 +8,14 @@
 				id="resultBoardDetail">
 		<result column="board_id" 
 				property="boardId"/>		
+		<result column="board_title" 
+				property="boardTitle"/>		
 		<result column="board_content" 
 				property="boardContent"/>		
 		<collection property="boardFile" 
 					ofType="com.test.pds.board.service.BoardFile">	
+			<result column="board_file_id" 
+					property="boardFileId"/>
 			<result column="board_file_name" 
 					property="boardFileName"/>
 			<result column="board_file_ext" 
@@ -46,7 +50,9 @@
 			resultMap="resultBoardDetail">
 		SELECT 
 			board.board_id
+			, board.board_title
 			, board.board_content 
+			, board_file.board_file_id
 			, board_file.board_file_name
 			, board_file.board_file_ext 
 		FROM board 
@@ -58,5 +64,13 @@
 			parameterType="Integer">
 		DELETE FROM board 
 		WHERE board_id = #{boardId}
-	</delete> 					
+	</delete>
+	<update id="updateBoard"
+			parameterType="com.test.pds.board.service.Board">
+		UPDATE board
+		SET
+		board_title = #{boardTitle}
+		,board_content = #{boardContent}
+		WHERE board_id = #{boardId}
+	</update> 					
 </mapper>

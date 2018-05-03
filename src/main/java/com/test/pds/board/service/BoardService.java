@@ -31,6 +31,7 @@ public class BoardService {
 	
 	/*Board,BoardFile 입력*/
 	public void insertBoard(BoardRequest boardRequest) {
+		
 		logger.debug("============ BoardService.insertBoard ==========");
 		
 		Board board = new Board();
@@ -84,6 +85,7 @@ public class BoardService {
 	
 	/*BoardList 검색 (Board의 Id,title)*/
 	public List<Board> selectBoardList() {
+		
 		logger.debug("============= BoardService.selectBoardList ===============");
 		return boardDao.selectBoardList();
 	}
@@ -91,6 +93,7 @@ public class BoardService {
 	/*where절이 들어감으로써 하나의 id에 여러개의 파일이므로 List가 아닌 Board타입으로 받는다
 	boardId를 매개변수로 받아 게시판 상세보기(Board의 content와 BoardFile의 boardFileName) 검색*/
 	public Board selectBoardDetail(int boardId){
+		
 		logger.debug("=========== BoardService.selectBoardDetail ============");
 		Board board = boardDao.selectBoardDetail(boardId);
 		logger.debug("BoardService.selectBoardDetail >> BoardDetailboard : "+board);
@@ -123,7 +126,14 @@ public class BoardService {
 					newFile.delete();
 			}			
 		}
-	}	
+	}
+	
+	/*게시판(boardTitle,boardContent) 수정*/
+	public int updateBoard(Board board) {
+		
+		int row = boardDao.updateBoard(board);
+		return row;
+	}
 }		
 		
 

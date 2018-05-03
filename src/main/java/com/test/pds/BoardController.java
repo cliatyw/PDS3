@@ -79,6 +79,7 @@ public class BoardController {
 		Board board = boardService.selectBoardDetail(boardId);
 		logger.debug("BoardController.selectBoardDetail >> BoardDetailboard : "+board);
 		model.addAttribute("boardId",board.getBoardId());
+		model.addAttribute("boardTitle", board.getBoardTitle());
 		model.addAttribute("boardContent",board.getBoardContent());
 		model.addAttribute("boardFile",board.getBoardFile());
 		return "/board/selectBoardDetail";
@@ -93,5 +94,14 @@ public class BoardController {
 		logger.debug("boardId : "+boardId);
 		boardService.deleteBoard(boardId);
 		return "redirect:/selectBoardList";
-	}	
+	}
+	
+	/*게시판(boardTitle,boardContent) 수정*/
+	@RequestMapping(value = "/updateBoard", method = RequestMethod.POST)
+	public String updateBoard(Board board) {
+		logger.debug("BoardController.updateBoard >> board : "+board);
+		boardService.updateBoard(board);
+		return "redirect:/selectBoardList";
+	}
+	
 }

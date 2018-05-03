@@ -27,14 +27,14 @@ public class BoardDao {
 	
 	/*BoardList 검색(Board의 Id,title)*/
 	public List<Board> selectBoardList() {
-		logger.debug("==========BoardDao.selectBoardList===========");
+		logger.debug("BoardDao.selectBoardList 실행");
 		return sqlSession.selectList(NS+"selectBoardList");
 	}
 	
 	/*where절이 들어감으로써 하나의 id에 여러개의 파일이므로 List가 아닌 Board타입으로 받는다
 	boardId를 매개변수로 받아 게시판 상세보기(Board의 content와 BoardFile의 boardFileName,boardFileExt) 검색*/
 	public Board selectBoardDetail(int boardId){
-		logger.debug("==========BoardDao.selectBoardDetail===========");	
+		logger.debug("BoardDao.selectBoardDetail 실행");	
 		Board board = sqlSession.selectOne(NS+"selectBoardDetail", boardId);
 		logger.debug("BoardDetail - board : "+board);
 		return board;
@@ -42,9 +42,16 @@ public class BoardDao {
 	
 	/*boardId를 매개변수로 받아  Board(boardId,boardTitle,boardContent)삭제*/
 	public int deleteBoard(int boardId) {
-		logger.debug("============BoardDao.deleteBoard==============");
+		logger.debug("BoardDao.deleteBoard 실행");
 		int row = sqlSession.delete(NS+"deleteBoard", boardId);
 		return row;
 	}
 	
+	/*게시판(boardTitle,boardContent) 수정*/
+	public int updateBoard(Board board) {
+		logger.debug("BoardDao.updateBoard 실행");
+		logger.debug("BoardDao.updateBoard >> board :"+board);
+		int row = sqlSession.update(NS+"updateBoard", board);
+		return row;
+	}
 }
