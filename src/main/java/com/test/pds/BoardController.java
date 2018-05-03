@@ -35,8 +35,6 @@ public class BoardController {
 	private Board board;
 	private static final Logger logger = LoggerFactory.getLogger(BoardController.class);
 
-	
-	
 	/*게시판 등록화면*/
 	@RequestMapping(value = "/insertBoard", method = RequestMethod.GET)
 	public String insertBoard() {
@@ -48,7 +46,7 @@ public class BoardController {
 	public String insertBoard(Model model,BoardRequest boardRequest) {
 		
 		List<MultipartFile> boardImgs = boardRequest.getMultipartFile();
-		logger.debug("=====BoardController.insertBoard 실행=====");
+		logger.debug("====== BoardController.insertBoard ======");
 		logger.debug("boardImgs : "+boardImgs);
 		if(boardImgs != null) {
 			for(MultipartFile file : boardImgs) {
@@ -78,9 +76,11 @@ public class BoardController {
 		
 		logger.debug("=========BoardController.selectBoardDetail==========");
 		logger.debug("boardId : "+boardId);
-		List<Board> list = boardService.selectBoardDetail(boardId);
-		logger.debug("BoardDetailboard : "+list);
-		model.addAttribute("list",list);
+		Board board = boardService.selectBoardDetail(boardId);
+		logger.debug("BoardController.selectBoardDetail >> BoardDetailboard : "+board);
+		model.addAttribute("boardId",board.getBoardId());
+		model.addAttribute("boardContent",board.getBoardContent());
+		model.addAttribute("boardFile",board.getBoardFile());
 		return "/board/selectBoardDetail";
 	}
 	

@@ -24,12 +24,10 @@
         </tr>
       </tbody>
     </table>
-	<c:forEach var="board" items="${list}">
-	<a href="${pageContext.request.contextPath}/deleteBoard?boardId=${board.boardId}">삭제</button></a>	
-	<div>boardContent  <textarea class="form-control" placeholder="${board.boardContent}" name="boardContent" readonly></textarea></div>	
-	<c:forEach var="boardFile" items="${board.boardFile}"><br>
-	<a href="/pds/resources/upload/${boardFile.boardFileName}.${boardFile.boardFileExt}" download target="_blank""><button type="button" class="btn btn-default">파일 다운로드</button></a><br>
+	<a href="${pageContext.request.contextPath}/deleteBoard?boardId=${boardId}">삭제</button></a>	
+	<div>boardContent  <textarea class="form-control" placeholder="${boardContent}" name="boardContent" readonly></textarea></div>	
+	<c:forEach var="boardFile" items="${boardFile}">
+	<a href="/pds/resources/upload/${boardFile.boardFileName}.${boardFile.boardFileExt}" download target="_blank""><button type="button" class="btn btn-default">파일 다운로드</button></a><br> 
 	</c:forEach>	
-	</c:forEach> 	
 </body>
 </html>

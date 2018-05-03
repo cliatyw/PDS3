@@ -28,8 +28,6 @@ public class BoardFileDao {
 	public int deleteBoardFile(int boardId) {
 		logger.debug("=============== BoardFileDao.deleteBoardFile ================");
 		logger.debug("boardId : "+boardId);
-		/*외래키 값을 0으로 설정*/
-		sqlSession.update(NS+"foreignKey");
 		int row = sqlSession.delete(NS+"deleteBoardFile", boardId);
 		return row;
 	}

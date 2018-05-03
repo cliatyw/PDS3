@@ -88,24 +88,27 @@ public class BoardService {
 		return boardDao.selectBoardList();
 	}
 	
-	/*boardId를 매개변수로 받아 게시판 상세보기(Board의 content와 BoardFile의 boardFileName) 검색*/
-	public List<Board> selectBoardDetail(int boardId){
+	/*where절이 들어감으로써 하나의 id에 여러개의 파일이므로 List가 아닌 Board타입으로 받는다
+	boardId를 매개변수로 받아 게시판 상세보기(Board의 content와 BoardFile의 boardFileName) 검색*/
+	public Board selectBoardDetail(int boardId){
 		logger.debug("=========== BoardService.selectBoardDetail ============");
-		List<Board> list = boardDao.selectBoardDetail(boardId);
-		logger.debug("BoardDetailboard : "+list);
-		return list;
+		Board board = boardDao.selectBoardDetail(boardId);
+		logger.debug("BoardService.selectBoardDetail >> BoardDetailboard : "+board);
+		return board;
 	}
 	
 	  /*boardId를매개변수로 받아  Board(boardId,boardTitle,boardContent)
 	  BoardFile(fileId,fileName,boardId,fileExt,fileType,fileSize)삭제*/ 
 	public void deleteBoard(int boardId) {
 	
-		List<Board> list = boardDao.selectBoardDetail(boardId);
-		logger.info("BoardService.deleteBoard >>>> list : "+list);
+		Board board = boardDao.selectBoardDetail(boardId);
+		logger.debug("BoardService.deleteBoard >>>> board : "+board);
+		/*boardId가 외래키로 설정되어있으므로 boardFile을 삭제후 board삭제*/
+		boardFileDao.deleteBoardFile(boardId);
+		boardDao.deleteBoard(boardId);	
 		/*파일이 저장된 경로*/
 		String DeleteFilePath = SystemPath.UPLOAD_PATH;
 		/*UPLOAD_PATH에 저장된 경로에서 파일삭제(파일이름, 확장자 이용)*/
-		for (Board board : list) {
 			logger.debug("BoardService.deleteBoard >>>> boardFile :  "+board.getBoardFile());
 			for(BoardFile file : board.getBoardFile()) {
 				logger.debug("BoardService.deleteBoard >>>> boardName : "+file.getBoardFileName());
@@ -115,14 +118,12 @@ public class BoardService {
 				/*파일 확장자*/
 				String fileExt =file.getBoardFileExt();
 				/*파일 삭제*/
-				File f = new File(DeleteFilePath+fileName+"."+fileExt);
-				if(f.exists()) {
-					f.delete();
-				}			
-			}
+				File newFile = new File(DeleteFilePath+fileName+"."+fileExt);
+				if(newFile.exists()) {
+					newFile.delete();
+			}			
 		}
-		boardDao.deleteBoard(boardId);
-		boardFileDao.deleteBoardFile(boardId);
-	}		
+	}	
 }		
+		
 

@@ -17,7 +17,8 @@
 			<result column="board_file_ext" 
 			property="boardFileExt"/>
 		</collection>			
-	</resultMap>		
+	</resultMap>	
+		
 	<insert id="insertBoard"
 			parameterType="com.test.pds.board.service.Board">
 		<selectKey resultType="Integer" 
@@ -53,9 +54,6 @@
 		ON board.board_id = board_file.board_id
 		WHERE board.board_id = #{boardId}
 	</select>
-	<update id="foreignKey">
-		SET foreign_key_checks = 0
-	</update>
 	<delete id="deleteBoard"
 			parameterType="Integer">
 		DELETE FROM board 
