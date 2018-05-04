@@ -112,28 +112,55 @@ public class BoardService {
 		/*파일이 저장된 경로*/
 		String DeleteFilePath = SystemPath.UPLOAD_PATH;
 		/*UPLOAD_PATH에 저장된 경로에서 파일삭제(파일이름, 확장자 이용)*/
-			logger.debug("BoardService.deleteBoard >>>> boardFile :  "+board.getBoardFile());
-			for(BoardFile file : board.getBoardFile()) {
-				logger.debug("BoardService.deleteBoard >>>> boardName : "+file.getBoardFileName());
-				logger.debug("BoardService.deleteBoard >>>> boardExt : "+file.getBoardFileExt());
-				/*파일 이름*/
-				String fileName = file.getBoardFileName();
-				/*파일 확장자*/
-				String fileExt =file.getBoardFileExt();
-				/*파일 삭제*/
-				File newFile = new File(DeleteFilePath+fileName+"."+fileExt);
-				if(newFile.exists()) {
-					newFile.delete();
-			}			
-		}
+		logger.debug("BoardService.deleteBoard >>>> boardFile :  "+board.getBoardFile());
+		for(BoardFile file : board.getBoardFile()) {
+			logger.debug("BoardService.deleteBoard >>>> boardName : "+file.getBoardFileName());
+			logger.debug("BoardService.deleteBoard >>>> boardExt : "+file.getBoardFileExt());
+			/*파일 이름*/
+			String fileName = file.getBoardFileName();
+			/*파일 확장자*/
+			String fileExt =file.getBoardFileExt();
+			/*파일 삭제*/
+			File newFile = new File(DeleteFilePath+fileName+"."+fileExt);
+			if(newFile.exists()) {
+				newFile.delete();
+		}			
+	}
 	}
 	
 	/*게시판(boardTitle,boardContent) 수정*/
-	public int updateBoard(Board board) {
+	public int updateBoard(Board board,List<String> boardFileName,List<String> boardFileExt) {
 		
 		int row = boardDao.updateBoard(board);
+		/*파일이 저장된 경로*/
+		String DeleteFilePath = SystemPath.UPLOAD_PATH;
+		/*boardFileName값을 받아와 for문을 이용해  List타입의 boardFileNameList에 담는다*/
+		List<String> boardFileNameList = new ArrayList<String>();
+		for(String fileName : boardFileName) {
+			logger.debug("BoardService.updateBoard >> boardFileName : "+fileName);
+			boardFileNameList.add(fileName);
+		}
+		/*boardFileExt값을 받아와 for문을 이용해 List타입의 boardFileExtList에 담는다*/ 
+		List<String> boardFileExtList = new ArrayList<String>();
+		for(String fileExt : boardFileExt) {
+			logger.debug("BoardService.updateBoard >> boardFileExt : "+fileExt);
+			boardFileExtList.add(fileExt);
+		}
+		for(int i=0; i<boardFileNameList.size();i++) {
+			/*파일 이름*/
+			String fileName = boardFileNameList.get(i);
+			/*파일 확장자*/
+			String fileExt =boardFileExtList.get(i);
+			/*파일삭제*/
+			File newFile = new File(DeleteFilePath+fileName+"."+fileExt);
+			if(newFile.exists()) {
+				newFile.delete();
+			}			
+		}
 		return row;
 	}
-}		
+		
+}
+		
 		
 

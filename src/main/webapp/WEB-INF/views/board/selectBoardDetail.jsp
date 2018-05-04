@@ -21,10 +21,13 @@
 				/* 수정확인 버튼 생성 */
 				$('#submit').after('<input type="submit" value="수정 확인"> ');
 			});
-			$('.updateFile').eq(0).click(function(){
+			/* 파일삭제 갯수를 알아와야함..... */
+			for(var i=0; i<1000;i++){
+			$('.updateFile').eq(i).click(function(){
 				$('#a').remove();
 				$('#fileDown').remove();
 			});
+			}
 		});
 	</script>
 </head>
@@ -50,17 +53,18 @@
 		<a href="${pageContext.request.contextPath}/deleteBoard?boardId=${boardId}"><button type="button" class="btn btn-primary">삭제</button></a>
 		<div>boardId - ${boardId}</div>
 		<input type=hidden value="${boardId}" name="boardId">
-		<div>boardTitle  <input type="text" id="title" name="boardTitle" class="form-control" placeholder="${boardTitle}" readonly></div>
-		<div>boardContent  <textarea id="content" class="form-control" placeholder="${boardContent}" name="boardContent" readonly></textarea></div>	
+		<div>boardTitle  <input type="text" id="title" name="boardTitle" class="form-control" placeholder="${boardTitle}" value="${boardTitle}" readonly></div>
+		<div>boardContent  <textarea id="content" class="form-control" placeholder="${boardContent}" name="boardContent" readonly>${boardContent}</textarea></div>	
 		<h4>첨부파일</h4>
 		<c:forEach var="boardFile" items="${boardFile}">
+			파일번호 = ${boardFile.boardFileId}
 			<div class="updateFile">
 				<a href="/pds/resources/upload/${boardFile.boardFileName}.${boardFile.boardFileExt}" download target="_blank" id="a"">
 						<button type="button" class="btn btn-default" id="fileDown">${boardFile.boardFileName}.${boardFile.boardFileExt}
 						</button>	
-				</a><p class="deleteFile"></p>
-				<%-- <input type=hidden value="${boardFile.boardFileName}" name="boardFileName">
-				<input type=hidden value="${boardFile.boardFileExt}" name="boardFileExt"> --%>				
+				<input type=hidden value="${boardFile.boardFileName}" name="boardFileName">
+				<input type=hidden value="${boardFile.boardFileExt}" name="boardFileExt">	
+				</a><p class="deleteFile"></p>					
 			</div>
 		</c:forEach>
 		<p id="file"></p>

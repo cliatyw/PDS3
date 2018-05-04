@@ -98,9 +98,13 @@ public class BoardController {
 	
 	/*게시판(boardTitle,boardContent) 수정*/
 	@RequestMapping(value = "/updateBoard", method = RequestMethod.POST)
-	public String updateBoard(Board board) {
+	public String updateBoard(Board board,
+							  @RequestParam(value="boardFileName") List<String> boardFileName,
+							  @RequestParam(value="boardFileExt") List<String> boardFileExt) {
 		logger.debug("BoardController.updateBoard >> board : "+board);
-		boardService.updateBoard(board);
+		logger.debug("BoardController.updateBoard >> boardFileName : "+boardFileName);
+		logger.debug("BoardController.updateBoard >> boardFileExt : "+boardFileExt);
+		boardService.updateBoard(board,boardFileName,boardFileExt);
 		return "redirect:/selectBoardList";
 	}
 	

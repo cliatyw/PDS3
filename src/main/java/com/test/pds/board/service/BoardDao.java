@@ -32,7 +32,7 @@ public class BoardDao {
 	}
 	
 	/*where절이 들어감으로써 하나의 id에 여러개의 파일이므로 List가 아닌 Board타입으로 받는다
-	boardId를 매개변수로 받아 게시판 상세보기(Board의 content와 BoardFile의 boardFileName,boardFileExt) 검색*/
+	boardId를 매개변수로 받아 게시판 상세보기(Board의 content와 BoardFile의 boardFileId,boardFileName,boardFileExt) 검색*/
 	public Board selectBoardDetail(int boardId){
 		logger.debug("BoardDao.selectBoardDetail 실행");	
 		Board board = sqlSession.selectOne(NS+"selectBoardDetail", boardId);
